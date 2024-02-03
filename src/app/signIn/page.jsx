@@ -1,8 +1,14 @@
 import React from 'react'
+import Image from "../../asset folder/Image1.png"
 
 const signIn = () => {
   return (
-    <div>This is the signIn</div>
+    <div>
+      <div>
+        <img src={Image} alt="" />
+      </div>
+
+    </div>
   )
 }
 
