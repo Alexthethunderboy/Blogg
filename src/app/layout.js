@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import Recommended from "@/components/Recommended/Recommended";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +17,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <Navbar/>
         {children}
+        {/* <Recommended isLoggedIn ={true} /> */}
         <Footer/>
         </body>
     </html>
