@@ -12,7 +12,7 @@ export default function PublishedList({ img, views, beauty, title }) {
         setShow(!show)
     }
   return (
-    <div className="flex flex-col xl:flex-row items-center pt-[60px] xl:pt-0 relative ml-[175px] xl:ml-5">
+    <div className=" w-full flex flex-col xl:flex-row items-center pt-[60px] xl:pt-0 relative ml-[175px] xl:ml-5">
       <div>
         <Image className="xl:w-[300px] w-[600px] xl:h-[250px] h-[400px]" src={img} alt="image" width={300} height={300}/>
       </div>
