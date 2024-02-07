@@ -1,0 +1,29 @@
+.btn{
+    background-color: #26BDD2;
+    color: white;
+    padding: 2px 8px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    font-style: 10px;
+}
+
+.container{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.container::after{
+    content: '';
+    width: 170px;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    background: #26BDD2;
+}
+
+.text{
+    font-weight: 600;
+}
