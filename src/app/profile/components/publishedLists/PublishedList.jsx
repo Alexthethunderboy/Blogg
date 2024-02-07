@@ -12,24 +12,24 @@ export default function PublishedList({ img, views, beauty, title }) {
         setShow(!show)
     }
   return (
-    <div className=" w-full flex flex-col xl:flex-row items-center pt-[60px] xl:pt-0 relative ml-[175px] xl:ml-5">
+    <div className=" w-full flex flex-col mx-auto md:flex-row gap-x-5 justify-center pt-[60px] md:pt-0 relative mb-8 ">
       <div>
-        <Image className="xl:w-[300px] w-[600px] xl:h-[250px] h-[400px]" src={img} alt="image" width={300} height={300}/>
+        <Image className="md:w-[451px] w-full md:h-[250px] object-cover self-center" src={img} alt="image" width={300} height={300}/>
       </div>
 
-      <div className="ml-0 xl:ml-4">
+      <div className="ml-0 ">
         <div className="flex items-center gap-5 pt-[55px] mb-4 text-[#626060] relative">
-        <button className="bg-[#26BDD2] text-white px-2 rounded-md py-1 mr-3 xl:mr-0">
+        <button className="bg-[#26BDD2] text-white px-2 rounded-md py-1 mr-3 md:mr-0">
           {beauty}
         </button>
-        <Image src={views} alt="views" width={200} height={200} />
-        {/* <span className="text-[#26BDD2] text-4xl rounded-[50%] mb-5 absolute top-10 left-[26%]">.</span> */}
-          <span> <span className="text-[#26BDD2] text-4xl rounded-[50%] absolute top-10 ml-[-11px]">.</span>4 mins read</span>
+        <Image src={views} alt="views" width={20} height={20} />
+        {/* <span className="text-[#26BDD2] text-4md rounded-[50%] mb-5 absolute top-10 left-[26%]">.</span> */}
+          <span> <span className="text-[#26BDD2] text-4md rounded-[50%] absolute top-10 ml-[-11px]">.</span>4 mins read</span>
           <span>09/09/2023</span>
         </div>
         <div>
           <h1 className="font-bold text-[20px] mb-3">{title}</h1>
-          <p className="xl:w-[700px] w-[500px] text-[#626060] text-[14px]">
+          <p className="md:w-[700px] text-[#626060] text-[14px]">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae
             dolores nihil suscipit ullam amet voluptatibus laboriosam est hic
             beatae obcaecati perferendis earum explicabo dolorem, maxime, quidem
@@ -42,7 +42,7 @@ export default function PublishedList({ img, views, beauty, title }) {
       </div>
       <Image
         onClick={handleClick}
-        className="w-6 h-6 absolute xl:static xl:mb-[80px] right-0 bottom-[27.6%]"
+        className="w-6 h-6 absolute md:static md:mb-[80px] right-0 bottom-[27.6%]"
         src={dots} alt="dots"
         width={200} height={200}
       />

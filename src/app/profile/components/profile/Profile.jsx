@@ -41,7 +41,7 @@ export default function Profile() {
           <button className={styles.btn}>Published</button>
           <h3 className={styles.text}>Drafts</h3>
         </div>
-        <div  className="me-[30px] md:mr-[50px]">
+        <div  className="px-[1.5rem]">
           {profileData.map((pro) => (
              <div key={pro.id}>
              <PublishedList
