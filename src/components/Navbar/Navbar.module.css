@@ -1,0 +1,19 @@
+/* "absolute top-[80px] w-[50%] my-[2rem] */
+.list{
+    background-color: #26BDD2;
+    position: absolute;
+    color: white;
+    top: 35px;
+    right: 0;
+    width: 100%;
+    margin-top: 2rem;
+    height: 70vh;
+    text-align: center;
+    padding: 15px 0px;
+    
+}
+
+
+
+
+/* "xl:hidden relative " */
