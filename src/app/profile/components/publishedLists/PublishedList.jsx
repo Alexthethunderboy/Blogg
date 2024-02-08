@@ -12,7 +12,7 @@ export default function PublishedList({ img, views, beauty, title }) {
         setShow(!show)
     }
   return (
-    <div className=" w-full flex flex-col mx-auto md:flex-row gap-x-5 justify-center pt-[60px] md:pt-0 relative mb-8 ">
+    <div className=" w-full flex flex-col mx-auto md:flex-row gap-x-5 justify-center md:pt-0 relative mb-8 ">
       <div>
         <Image className="md:w-[451px] w-full md:h-[250px] object-cover self-center" src={img} alt="image" width={300} height={300}/>
       </div>
@@ -42,7 +42,7 @@ export default function PublishedList({ img, views, beauty, title }) {
       </div>
       <Image
         onClick={handleClick}
-        className="w-6 h-6 absolute md:static md:mb-[80px] right-0 bottom-[27.6%]"
+        className="cursor-pointer w-6 h-6 absolute md:static md:mb-[80px] right-0 bottom-[27.6%]"
         src={dots} alt="dots"
         width={200} height={200}
       />

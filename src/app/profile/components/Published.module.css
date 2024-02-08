@@ -9,11 +9,6 @@
 
 .container{
     position: relative;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 2.5rem;
-    padding: 0 1.5rem;
 }
 
 .container::after{
@@ -21,7 +16,6 @@
     width: 170px;
     height: 2px;
     position: absolute;
-    left: 1.5rem;
     bottom: -5px;
     background: #26BDD2;
 }
@@ -30,5 +24,7 @@
     font-weight: 600;
 }
 @media (max-width: 420px){
-
+.container{
+    margin-bottom: 1rem;
+}
 }
