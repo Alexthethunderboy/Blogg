@@ -1,0 +1,30 @@
+.btn{
+    background-color: #26BDD2;
+    color: white;
+    padding: 2px 8px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    font-style: 10px;
+}
+
+.container{
+    position: relative;
+}
+
+.container::after{
+    content: '';
+    width: 170px;
+    height: 2px;
+    position: absolute;
+    bottom: -5px;
+    background: #26BDD2;
+}
+
+.text{
+    font-weight: 600;
+}
+@media (max-width: 420px){
+.container{
+    margin-bottom: 1rem;
+}
+}
