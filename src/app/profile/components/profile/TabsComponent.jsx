@@ -14,14 +14,14 @@ const TabsComponent = ({items}) => {
     <div>
       <div className="flex flex-col gap-y-2 w-full">
         <div
-          className={`w-[12rem] p-1 rounded-xl flex justify-between items-center gap-x-2 font-bold text-blue-400 mb-4 ${styles.container}`}
+          className={`w-[12rem] p-1 rounded-xl flex justify-between items-center gap-x-2 font-bold text-[#26BDD2] mb-4 ${styles.container}`}
         >
           {items.map((item, index) => (
             <button
               ref={index === 0 ? firstBtnRef : null}
               key={index}
               onClick={() => setSelectedTab(index)}
-              className={`outline-none w-full p-2 hover:bg-blue-300 rounded-t-lg text-cneter focus:ring-2 focus:bg-white focus:text-[#26BDD2] ${
+              className={`outline-none w-full p-2 hover:bg-[#26BDD2] hover:text-white rounded-t-lg text-cneter  ${
                 selectedTab === index ? "bg-[#26BDD2] text-white" : ""
               } `}
             >

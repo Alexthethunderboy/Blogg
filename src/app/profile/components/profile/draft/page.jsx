@@ -9,7 +9,7 @@ export default function Draft() {
         <div key={pro.id}>
           <PublishedList
             img={pro.img}
-            views={pro.makeup}
+            views={pro.views}
             beauty={pro.beauty}
             title={pro.title}
           />

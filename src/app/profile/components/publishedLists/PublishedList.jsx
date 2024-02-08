@@ -22,9 +22,9 @@ export default function PublishedList({ img, views, beauty, title }) {
         <button className="bg-[#26BDD2] text-white px-2 rounded-md py-1 mr-3 md:mr-0">
           {beauty}
         </button>
-        <Image src={views} alt="views" width={20} height={20} />
+        <Image src={views} alt="views" width={60} height={60} />
         {/* <span className="text-[#26BDD2] text-4md rounded-[50%] mb-5 absolute top-10 left-[26%]">.</span> */}
-          <span> <span className="text-[#26BDD2] text-4md rounded-[50%] absolute top-10 ml-[-11px]">.</span>4 mins read</span>
+          <span className="flex items-center gap-x-2"> <span className="bg-[#26BDD2] block rounded-md  w-[5px] h-[5px] "></span>4 mins read</span>
           <span>09/09/2023</span>
         </div>
         <div>
