@@ -38,7 +38,7 @@ const Sign_in = () => {
     const username = e.target[0].value;
     const password = e.target[1].value;
 
-    if (!isValidEmail(username)) {
+    if (!isValidUsername(username)) {
       setError("username is invalid");
       return;
     }
@@ -75,64 +75,72 @@ const Sign_in = () => {
   return (
     status !== "authenticated" && (
       
-    <div className="bg-pink-200 flex ">
+    <div className="xl:bg-pink-200 flex bg-hidden bg-pink-500 md:bg-pink-500">
     <form className="onSubmit={handleSubmit}">
-      <div className="flex m-auto mt-6 mb-4">
-        <div className="ml-10">
+      <div className=" xl:flex m-auto mt-6 mb-4 md:m-auto ">
+        <div className="xl:ml-10">
           <Image
-            className="h-[800px]"
+            className=" xl:h-[800px] xl:block xl:w-full h-[18rem] w-[23rem] ml-3  
+            md:w-[740px] md:h-[22rem] md:pr-6 md:mt-[2rem] xl:pr-0"
             src={Imagepng}
-            width="690"
-            height="800"
+            // width="690"
+            // height="800"
             placeholder="blur"
             alt="Image"
           />
         </div>
-        <div className="bg-gray-500 p-[6rem] h-[800px] ">
-          <div className="mt-[2rem]">
-            <h1 className="text-center font-extrabold text-3xl mb-3 border-1 text-blue-400 cursor-pointer">
+        <div className="bg-gray-500 xl:p-[8rem] h-[800px] xl:w-[750px] xl:mt-[2rem] ml-2 xl:ml-0">
+          <div className=" xl:mt-[-1rem] mt-[3rem] pt-4">
+            <h1 className=" xl:text-center xl:ml-0 font-extrabold text-3xl mb-3 border-1
+             text-blue-400 cursor-pointer ml-[8rem] pt-6 md:text-center md:ml-[4rem] md:pt-5">
               BLOGG
             </h1>
 
-            <h6 className="text-center mb-6">welcome Back!</h6>
-            <p className="text-sm text-center mb-10">
-              Enter your user name or Email and Password to Login with us
+            <h6 className="xl:text-center xl:ml-0 mb-6 ml-[7.8rem] md:text-center md:ml-[4rem]">welcome Back! 🙂 </h6>
+            <p className="xl:text-[12px] xl:text-center xl:ml-0 mb-10 text-[10px] 
+            w-[220px] text-center xl:w-full ml-[4.8rem] md:text-center md:w-[300px] md:ml-[16.8rem]">
+              Enter your user name or Email and Password to Login with us 😇 
             </p>
-            <span className="flex flex-col">
-              <label className="mb-3" htmlFor="">
+            <span className="flex flex-col md:ml-[11rem] xl:ml-0">
+              <label className=" xl:mb-3 mb-4 ml-8" htmlFor="">
                 Username
               </label>
               <input
-                className="h-[2.5rem] mb-[1.2rem] border-gray-300 rounded-full bg-slate-300 p-6 bg-none"
+                className="xl:h-[2.5rem] xl:mb-[1.2rem] xl: border-gray-300 xl:rounded-full 
+                xl: bg-slate-300 xl:p-6 xl:w-full bg-none ml-7 h-[3rem] p-3 rounded-full w-[328px] md:w-[400px] "
                 type="text"
-                placeholder="enter your username"
+                placeholder="enter your username" required
                 id="username"
               />
             </span>
-            <span className="flex flex-col">
-              <label className="mb-3" htmlFor="">
+            <span className="flex flex-col md:ml-[11rem] xl:w-full xl:ml-[-.4rem]">
+              <label className="xl:mb-3 mb-4 ml-8" htmlFor="">
                 Password
               </label>
               <input
-                className="h-[2.5rem] mb-4 rounded-full p-6 bg-slate-300 border-0"
+                className=":h-[2.5rem] xl:mb-[1.2rem] xl: border-gray-300 xl:rounded-full 
+                xl: bg-slate-300 xl:p-6 xl:w-full bg-none ml-7 h-[3rem] p-3 rounded-full w-[328px] md:w-[400px]"
                 type="Password"
-                placeholder="enter your Password"
+                placeholder="enter your Password" required
                 id="Password"
               />
             </span>
 
-              <button className="bg-blue-300 w-full mt-6 h-14 text-2xl rounded-full p-3 shadow-lg cursor-pointer active:scale-0">
-                Sign in
+              <button className="xl:bg-blue-300 xl:w-full xl:mt-6 xl:h-14 
+              xl:text-2xl xl:rounded-full xl:p-3 xl:shadow-lg xl:cursor-pointer 
+              xl:active:scale-0 ml-[2rem] mt-[5rem] text-lg rounded-full w-[328px]
+               bg-blue-400 h-[3.8rem] md:ml-[12.8rem] md:w-[400px] xl:ml-[2rem]">
+               <span className="xl:ml-[-1rem]"> Sign in</span>
               
               </button>
 
 
             <div className="flex justify-between items-center mt-[3rem]">
-              <hr className="w-[12rem]" />
-              <span className="ml-[3rem] mr-[3rem]">OR</span>
-              <hr className="w-[12rem]" />
+              <hr className="xl:w-[12rem] w-[8rem]" />
+              <span className="xl:ml-[6rem] mr-[2rem]">OR</span>
+              <hr className="xl:w-[12rem] w-[8rem]" />
             </div>
-            <p className="text-center">sign in with</p>
+            <p className="text-center xl:ml-[3rem]">sign in with</p>
             <div className=" {styles.container} flex flex-row h-8 w-8 justify-around m-auto gap-6 mt-8">
               <Image
                 className="cursor-pointer active:scale-0"
