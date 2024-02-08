@@ -15,8 +15,11 @@ import img12 from "@/assets/Frame 30 (7).png";
 import img13 from "@/assets/Frame 30 (8).png";
 import img14 from "@/assets/Frame 30 (9).png";
 import eye from "@/assets/Vector.png";
+import Link from "next/link";
 
 const Homepage = () => {
+
+  
   
   return (
     <section className="border-t-2 border-blue-400">
@@ -30,10 +33,11 @@ const Homepage = () => {
             ultrices nisi. Ligula eu aliquet sagittis sit. In justo lectus at
             rhoncus faucibus nulla sapien.
           </p>
-
+          <Link href={'/signIn'}>
           <button className="bg-blue-400 p-2 rounded w-[9rem] text-white">
             Get Started
           </button>
+          </Link>
         </div>
         <div className="md:basis-1/2 mt-10 md:mt-0">
           <Image src={heroImg} alt="printer" />
