@@ -8,12 +8,13 @@ import Imagepng from "../../../public/Image1.png";
 import Imagepng2 from "../../../public/logos_facebook.png";
 import Imagepng3 from "../../../public/mdi_apple.png";
 import Imagepng4 from "../../../public/devicon_google.png";
-import styles from "./SignIn.module.css";
 import Link from "next/link";
 import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import  { useEffect } from "react";
+import styles from "./SignIn.module.css"
+
 
 
 const Sign_in = () => {
@@ -75,13 +76,13 @@ const Sign_in = () => {
   return (
     status !== "authenticated" && (
       
-    <div className="xl:bg-pink-200 flex bg-hidden bg-pink-500 md:bg-pink-500">
+    <div className=" {styles.container} flex bg-slate-400">
     <form className="onSubmit={handleSubmit}">
-      <div className=" xl:flex m-auto mt-6 mb-4 md:m-auto ">
-        <div className="xl:ml-10">
+      <div className=" xl:flex m-auto mt-6 mb-4 md:m-auto  ">
+        <div className="xl:ml-0">
           <Image
-            className=" xl:h-[800px] xl:block xl:w-full h-[18rem] w-[23rem] ml-3  
-            md:w-[740px] md:h-[22rem] md:pr-6 md:mt-[2rem] xl:pr-0"
+            className=" xl:h-[900px] xl:ml-0 xl:block xl:w-[62rem] h-[18rem] w-[23rem] ml-3  
+            md:w-[740px] md:h-[22rem] md:pr-6 md:mt-[2rem] xl:pr-0 xl:mt-0 xl:mb-0"
             src={Imagepng}
             // width="690"
             // height="800"
@@ -89,7 +90,7 @@ const Sign_in = () => {
             alt="Image"
           />
         </div>
-        <div className="bg-gray-500 xl:p-[8rem] h-[800px] xl:w-[750px] xl:mt-[2rem] ml-2 xl:ml-0">
+        <div className= " xl:p-[8rem] h-[800px] xl:w-[750px] xl:mt-[2rem] ml-2 xl:ml-0">
           <div className=" xl:mt-[-1rem] mt-[3rem] pt-4">
             <h1 className=" xl:text-center xl:ml-0 font-extrabold text-3xl mb-3 border-1
              text-blue-400 cursor-pointer ml-[8rem] pt-6 md:text-center md:ml-[4rem] md:pt-5">
@@ -103,14 +104,15 @@ const Sign_in = () => {
             </p>
             <span className="flex flex-col md:ml-[11rem] xl:ml-0">
               <label className=" xl:mb-3 mb-4 ml-8" htmlFor="">
-                Username
+                <span className="">Username</span>
               </label>
               <input
                 className="xl:h-[2.5rem] xl:mb-[1.2rem] xl: border-gray-300 xl:rounded-full 
                 xl: bg-slate-300 xl:p-6 xl:w-full bg-none ml-7 h-[3rem] p-3 rounded-full w-[328px] md:w-[400px] "
                 type="text"
-                placeholder="enter your username" required
-                id="username"
+                placeholder="enter your username" 
+                required
+                
               />
             </span>
             <span className="flex flex-col md:ml-[11rem] xl:w-full xl:ml-[-.4rem]">
@@ -121,8 +123,9 @@ const Sign_in = () => {
                 className=":h-[2.5rem] xl:mb-[1.2rem] xl: border-gray-300 xl:rounded-full 
                 xl: bg-slate-300 xl:p-6 xl:w-full bg-none ml-7 h-[3rem] p-3 rounded-full w-[328px] md:w-[400px]"
                 type="Password"
-                placeholder="enter your Password" required
-                id="Password"
+                placeholder="enter your Password" 
+                required
+                
               />
             </span>
 
@@ -137,11 +140,11 @@ const Sign_in = () => {
 
             <div className="flex justify-between items-center mt-[3rem]">
               <hr className="xl:w-[12rem] w-[8rem]" />
-              <span className="xl:ml-[6rem] mr-[2rem]">OR</span>
+              <span className="xl:ml-[4rem] mr-[2rem]">OR</span>
               <hr className="xl:w-[12rem] w-[8rem]" />
             </div>
             <p className="text-center xl:ml-[3rem]">sign in with</p>
-            <div className=" {styles.container} flex flex-row h-8 w-8 justify-around m-auto gap-6 mt-8">
+            <div className=" xl:ml-[15.8rem] flex flex-row h-8 w-8 justify-around m-auto gap-6 mt-8">
               <Image
                 className="cursor-pointer active:scale-0"
                 src={Imagepng2}
@@ -157,7 +160,7 @@ const Sign_in = () => {
                 alt="applelogo"
               />
               <Image
-                className="cursor-pointer active:scale-0"
+                className=" {styles.google}  cursor-pointer active:scale-0"
                 src={Imagepng4}
                 width="24px"
                 height="22px"
