@@ -57,7 +57,7 @@ export default function SignUpPage() {
             username: "",
             password: "",
           });
-          router.push("/login");
+          router.push("/signIn");
         }
         if (res.status === 400) {
           setErrors("User has been registered");

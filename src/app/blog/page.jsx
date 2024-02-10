@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import image from '@/Frame 13.png'
-import eye from '@/Vector (1).png'
+// import image from "@/assets/Frame 13.png";
+// import eye from "@/assets/Vector (1).png";
 import Recommended from '@/components/Recommended/Recommended'
 
 
@@ -18,11 +18,11 @@ export default async function Blog() {
 
           <div className='xl:flex flex gap-1 xl:gap-2 pt-1'>
             <div className='pt-1'>
-              <Image src={eye} alt="" />
+              {/* <Image src={eye} alt="" /> */}
             </div>
               <p className=''>views</p>
           </div>
-        
+
 
           <div className='flex gap-2 relative pt-1'>
             <div className='absolute xl:left-[-.8rem] left-[-.4rem] top-[-.2rem]'>
@@ -35,7 +35,7 @@ export default async function Blog() {
         </div>
       <div>
         <div className='xl:flex gap-10'>
-            <Image src={image} alt="" className='basis-1/2'/>
+            {/* <Image src={image} alt="" className='basis-1/2'/> */}
             <p className=' basis-1/2'>
               Lorem ipsum dolor sit amet consectetur. Enim justo rhoncus vulputate enim amet. Egestas fermentum pulvinar interdum pharetra facilisis tincidunt ultricies. A tincidunt laoreet imperdiet ac fermentum. Volutpat eget dictum nunc sit vestibulum pretium in. Integer facilisis tortor diam vulputate et pretium luctus. In tortor consequat metus ultricies quis. Molestie mi elit nunc tincidunt at facilisi. Nibh leo lobortis sit quisque cras metus sed ipsum laoreet. Sagittis enim aliquet rhoncus vel sed et suspendisse elementum. Neque accumsan eleifend id nibh turpis pellentesque quisque natoque. Tortor enim non suspendisse lectus scelerisque orci arcu massa. Pretium sit tincidunt vitae massa tristique. Aliquam nunc auctor nulla duis at facilisis. Pharetra et lorem enim dignissim.
               Consectetur diam sed aliquam duis tortor ipsum. Tempor ultrices viverra auctor aliquam placerat sit. Nunc amet dui in nibh. Diam leo duis feugiat ullamcorper. Lorem quam dictum nisi tincidunt. Platea a pellentesque platea fames bibendum eget ac quis. Volutpat a nunc sed elementum sed lacus. At est senectus lectus semper viverra. Pulvinar pellentesque amet urna rhoncus eget. Nec scelerisque imperdiet at orci. Et etiam erat a quis gravida vestibulum blandit. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusantium nihil ad alias corrupti, id quos amet delectus molestiae natus harum sunt deleniti voluptatibus doloremque! Blanditiis accusamus odit voluptate qui laboriosam. Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis incidunt repellendus molestiae? Ratione adipisci dolor cum repellat magnam illo dolore ex eius atque, accusantium provident nesciunt dicta a iste quisquam? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure, quasi? Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro aliquam neque voluptatum facere id quis autem voluptatibus aspernatur fugit. Illum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem delectus quos corrupti sapiente? Illum quis harum voluptatem veritatis provident. Eum voluptas dignissimos voluptate molestiae assumenda sequi nobis officia laudantium quibusdam a neque, porro recusandae magni nemo ipsum dolor corrupti similique tempora. Accusantium saepe itaque iste amet labore asperiores, officia cupiditate! Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, dolores.
