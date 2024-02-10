@@ -4,9 +4,11 @@ import React, { useState } from "react";
 import ham from "@/assets/hamburger.png";
 import Image from "next/image";
 import styles from "@/components/Navbar/Navbar.module.css";
+import { signOut, useSession } from "next-auth/react";
 
 const Navbar = () => {
   const [show, setShow] = useState();
+  const { data: session } = useSession();
   const handleShow = () => {
     setShow(!show);
   };
@@ -62,7 +64,35 @@ const Navbar = () => {
         </div>
 
         <div className="md:flex items-center gap-3 hidden">
-          <Link href={"/signUp"}>
+          {!session ? (
+            <>
+              <Link href={"/signUp"}>
+                <button className="w-[150px] h-[50px] border-solid bg-[#26BDD2] text-white rounded-lg text-[18px] font-medium">
+                  Get Started
+                </button>
+              </Link>
+              <Link href="/signIn">
+                <li className="w-[150px] h-[50px] border-solid bg-white rounded-lg text-[18px] font-medium">
+                  SignIn
+                </li>
+              </Link>
+            </>
+          ) : (
+            <>
+              {session.user?.email}
+              <li>
+                <button
+                  onClick={() => {
+                    signOut();
+                  }}
+                  className="p-2 px-5 -mt-1 bg-blue-800 rounded-full"
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          )}
+          {/* <Link href={"/signUp"}>
             <button className="w-[150px] h-[50px] border-solid bg-[#26BDD2] text-white rounded-lg text-[18px] font-medium">
               Get Started
             </button>
@@ -71,7 +101,7 @@ const Navbar = () => {
             <button className="w-[150px] h-[50px] border-solid bg-white rounded-lg text-[18px] font-medium">
               Sign In
             </button>
-          </Link>
+          </Link> */}
         </div>
         <div onClick={handleShow} className="md:hidden">
           <Image src={ham} width={50} />

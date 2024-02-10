@@ -1,5 +1,5 @@
+import connect from "@/Utils/mongodb";
 import Profile from "@/models/Profile";
-import connect from "@/utils/mongodb";
 import bcrypt from 'bcrypt'
 import { NextResponse } from "next/server";
 
