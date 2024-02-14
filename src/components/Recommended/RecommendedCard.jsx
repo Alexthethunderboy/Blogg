@@ -1,5 +1,8 @@
 import Image from "next/image";
-import image4 from "@/Vector (1).png";
+// import image4 from "@/Vector (1).png";
+import { IoMdEye } from "react-icons/io";
+
+
 
 function RecommendedCard(props) {
   return (
@@ -7,10 +10,13 @@ function RecommendedCard(props) {
       <Image src={props.image} className="pt-[2rem]" alt="" />
         <div className="flex gap-[1.5rem] pt-5 pb-2">
             <div className="flex gap-1">
-                <div className="pt-1">
+                {/* <div className="pt-1">
                     <Image src={props.view} alt="" />
-                </div>
+                </div> */}
+                <div>
+                <IoMdEye/>
                 <p>views</p>
+                </div>
             </div>
             <div className="flex relative">
                 <div className="absolute left-[-.7rem] bottom-1">

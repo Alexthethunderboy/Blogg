@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import React from "react";
 import heroImg from "@/assets/Frame 10.png";
@@ -16,9 +18,11 @@ import img13 from "@/assets/Frame 30 (8).png";
 import img14 from "@/assets/Frame 30 (9).png";
 import eye from "@/assets/Vector.png";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+
 
 const Homepage = () => {
-
+  const { data: session } = useSession();
   
   
   return (
@@ -33,11 +37,23 @@ const Homepage = () => {
             ultrices nisi. Ligula eu aliquet sagittis sit. In justo lectus at
             rhoncus faucibus nulla sapien.
           </p>
-          <Link href={'/signIn'}>
-          <button className="bg-blue-400 p-2 rounded w-[9rem] text-white">
-            Get Started
-          </button>
+          {!session ? (
+            <>
+              <Link href={'/signUp'}>
+                <button className="bg-blue-400 p-2 rounded w-[9rem] text-white">
+                Get Started
+                </button>
+              </Link>
+            </>
+          ) : (
+            <>
+            <Link href={'/blog/blog-components'}>
+            <button className="bg-blue-400 p-2 rounded w-[9rem] text-white">
+            Create blog
+            </button>
           </Link>
+          </>
+          )}
         </div>
         <div className="md:basis-1/2 mt-10 md:mt-0">
           <Image src={heroImg} alt="printer" />
@@ -216,7 +232,7 @@ const Homepage = () => {
           </div>
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img8} width={200} />
+              <Image src={img10} />
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
                   <Image src={eye} />
@@ -299,7 +315,7 @@ const Homepage = () => {
           </div>
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img11} width={200} />
+              <Image src={img12} />
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
                   <Image src={eye} />
@@ -379,7 +395,7 @@ const Homepage = () => {
           </div>
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img14} width={200} />
+              <Image src={img7} />
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
                   <Image src={eye} />
