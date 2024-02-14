@@ -12,7 +12,6 @@ const Recommended = () => {
                     <RecommendedCard
                     key= {recommended.id}
                     image = {recommended.image}
-                    view = {recommended.view}
                     text = {recommended.text}
                     paragraph = {recommended.paragraph}
                     />
