@@ -63,11 +63,11 @@ const Homepage = () => {
       <div className="flex flex-col md:flex-row md:gap-5 mt-10 border-t-2 border-blue-400">
         <div className="md:ms-[5rem] mx-5 md:mx-0 flex  flex-col gap-5 md:basis-1/2 mt-10">
           <h1 className="text-2xl font-bold">Trending</h1>
-          <Image src={img2} />
+          <Image src={img2} alt="main"/>
           <div className="flex gap-2 text-sm items-center text-[#626060]">
             <p className="bg-[#D22697] rounded p-1 text-white">Self defence</p>
             <div className="flex gap-1 items-center">
-              <Image src={eye} />
+              <Image src={eye} alt=""/>
               <p>views</p>
             </div>
             <div className="flex items-center">
@@ -89,14 +89,14 @@ const Homepage = () => {
           <h1 className="text-2xl font-bold ">Most Read</h1>
           <div className="flex flex-col gap-10">
             <div className="flex flex-col md:flex-row gap-5">
-              <Image src={img3} width={150}  className="w-full md:w-30"/>
+              <Image src={img3} width={150} alt="" className="w-full md:w-30"/>
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2 items-center text-[#626060] text-sm">
                   <p className="bg-blue-700 rounded p-1 text-white">
                     Construction
                   </p>
                   <div className="flex gap-1 items-center">
-                    <Image src={eye} />
+                    <Image src={eye} alt=""/>
                     <p>views</p>
                   </div>
                   <div className="flex items-center">
@@ -117,14 +117,14 @@ const Homepage = () => {
               </div>
             </div>
             <div className="flex flex-col md:flex-row gap-5">
-              <Image src={img4} width={150} className="w-full md:w-30"/>
+              <Image src={img4} width={150} alt="" className="w-full md:w-30"/>
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2 items-center text-[#626060] text-xs">
                   <p className="bg-green-600 rounded p-1 text-white">
                     Health care
                   </p>
                   <div className="flex gap-1 items-center">
-                    <Image src={eye} />
+                    <Image src={eye} alt=""/>
                     <p>views</p>
                   </div>
                   <div className="flex items-center">
@@ -145,14 +145,14 @@ const Homepage = () => {
               </div>
             </div>
             <div className="flex md:flex-row flex-col gap-5">
-              <Image src={img5} width={150} className="w-full md:w-30"/>
+              <Image src={img5} width={150} alt="" className="w-full md:w-30"/>
               <div className="flex flex-col gap-2">
                 <div className="flex gap-2 items-center text-[#626060] text-xs">
                   <p className="bg-purple-700 rounded py-1 px-3 text-white">
                     Sports
                   </p>
                   <div className="flex gap-1 items-center">
-                    <Image src={eye} />
+                    <Image src={eye} alt=""/>
                     <p>views</p>
                   </div>
                   <div className="flex items-center">
@@ -183,10 +183,10 @@ const Homepage = () => {
         <div className="flex flex-col md:flex-row gap-10 md:gap-5">
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img6} />
+              <Image src={img6} alt=""/>
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
-                  <Image src={eye} />
+                  <Image src={eye} alt=""/>
                   <p>views</p>
                 </div>
                 <div className="flex items-center">
@@ -207,10 +207,10 @@ const Homepage = () => {
           </div>
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img7} />
+              <Image src={img7} alt=""/>
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
-                  <Image src={eye} />
+                  <Image src={eye} alt=""/>
                   <p>views</p>
                 </div>
                 <div className="flex items-center">
@@ -232,10 +232,10 @@ const Homepage = () => {
           </div>
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img10} />
+              <Image src={img10} alt=""/>
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
-                  <Image src={eye} />
+                  <Image src={eye} alt=""/>
                   <p>views</p>
                 </div>
                 <div className="flex items-center">
@@ -267,10 +267,10 @@ const Homepage = () => {
         <div className="flex flex-col md:flex-row gap-10 md:gap-5">
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img9} />
+              <Image src={img9} alt=""/>
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
-                  <Image src={eye} />
+                  <Image src={eye} alt=""/>
                   <p>views</p>
                 </div>
                 <div className="flex items-center">
@@ -291,10 +291,10 @@ const Homepage = () => {
           </div>
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img10} />
+              <Image src={img10} alt=""/>
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
-                  <Image src={eye} />
+                  <Image src={eye} alt=""/>
                   <p>views</p>
                 </div>
                 <div className="flex items-center">
@@ -315,10 +315,10 @@ const Homepage = () => {
           </div>
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img12} />
+              <Image src={img12} alt=""/>
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
-                  <Image src={eye} />
+                  <Image src={eye} alt=""/>
                   <p>views</p>
                 </div>
                 <div className="flex items-center">
@@ -347,10 +347,10 @@ const Homepage = () => {
         <div className="flex flex-col md:flex-row gap-10 md:gap-5">
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img12} />
+              <Image src={img12} alt=""/>
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
-                  <Image src={eye} />
+                  <Image src={eye} alt=""/>
                   <p>views</p>
                 </div>
                 <div className="flex items-center">
@@ -371,10 +371,10 @@ const Homepage = () => {
           </div>
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img13} />
+              <Image src={img13} alt=""/>
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
-                  <Image src={eye} />
+                  <Image src={eye} alt=""/>
                   <p>views</p>
                 </div>
                 <div className="flex items-center">
@@ -395,10 +395,10 @@ const Homepage = () => {
           </div>
           <div>
             <div className=" flex flex-col gap-2">
-              <Image src={img7} />
+              <Image src={img7} alt=""/>
               <div className="flex gap-2 items-center text-[#626060]">
                 <div className="flex gap-1 items-center">
-                  <Image src={eye} />
+                  <Image src={eye} alt=""/>
                   <p>views</p>
                 </div>
                 <div className="flex items-center">

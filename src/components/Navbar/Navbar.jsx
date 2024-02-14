@@ -104,7 +104,7 @@ const Navbar = () => {
           </Link> */}
         </div>
         <div onClick={handleShow} className="md:hidden">
-          <Image src={ham} width={50} />
+          <Image src={ham} width={50} alt=""/>
         </div>
       </nav>
     </div>
