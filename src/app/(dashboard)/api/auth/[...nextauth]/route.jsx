@@ -11,7 +11,7 @@ export const authOptions = {
       id: "credentials",
       name: "Credentials",
       credentials: {
-        // email: { label: "Email", type: "text" },
+  
         username: { label: "username", type: "text" },
         password: { label: "Password", type: "password" },
       },
@@ -28,15 +28,13 @@ export const authOptions = {
               return user;
             }
           }
-          // if(credentials.username === username){
-          //   return user;
-          // }
+         
         } catch (err) {
           throw new Error(err);
         }
       },
     }),
-    // ...add more providers here
+    
   ],
   callbacks: {
     async signIn({ user, account }) {
