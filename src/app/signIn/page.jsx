@@ -29,7 +29,7 @@ export default function SignUpPage() {
 
   useEffect(() => {
     if (status === "authenticated") {
-      router.replace("/profile");
+      router.replace("/");
     }
   }, [status, router]);
 
@@ -63,7 +63,7 @@ export default function SignUpPage() {
       console.log(newRes);
       if (res?.error) {
         setErrors("Invalid email or password");
-        if (res?.url) router.replace("/profile");
+        if (res?.url) router.replace("/");
       } else {
         setErrors("");
       }
