@@ -59,7 +59,7 @@ export default function NewBlog() {
       });
 
       if (res.status === 201) {
-        router.push("/");
+        router.push("/profile");
         alert(`succesfully sent`)
       } else {
         throw new Error("Failed to publish");

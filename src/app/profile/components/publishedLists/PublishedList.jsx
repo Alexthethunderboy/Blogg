@@ -5,6 +5,8 @@ import dots from '@/assets/dots.png'
 import send from "@/assets/send.png";
 import edit from "@/assets/edit.png";
 import del from "@/assets/delete.png"
+import RemoveBtn from "../buttons/RemoveBtn";
+import Link from "next/link";
 
 export default function PublishedList({ img, views, beauty, title }) {
     const [show, setShow] = useState(false);
@@ -55,12 +57,16 @@ export default function PublishedList({ img, views, beauty, title }) {
 
           <div className="flex gap-2 mb-2">
             <Image className="w-[12px] h-[12px] cursor-pointer" src={edit} alt="edit" width={200} height={200} />
-            <span className="text-[10px]">Edit</span>
+            {/* <span className="text-[10px]">Edit</span> */}
+            <Link className="text-[10px]" href={`/editTopic/${t._id}`}>
+              Edit
+            </Link>
           </div>
 
           <div className="flex gap-2">
             <Image className="w-[12px] h-[12px] cursor-pointer" src={del} alt="del" width={200} height={200}/>
             <span className="text-[10px]">Delete</span>
+            <RemoveBtn/>
           </div>
         </div>
       )}

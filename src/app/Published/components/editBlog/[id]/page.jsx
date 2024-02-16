@@ -1,4 +1,4 @@
-import EditTopicForm from "@/components/EditTopicForm";
+import EditPublishedForm from "../EditPublishedForm";
 
 const getBlogById = async (id) => {
   try {
@@ -18,8 +18,8 @@ const getBlogById = async (id) => {
 
 export default async function EditBlog({ params }) {
   const { id } = params;
-  const { topic } = await getBlogById(id);
-  const { title, description } = topic;
+  const { published } = await getBlogById(id);
+  const { title, tag, tagImage, Readtime, story } = published;
 
-  return <EditTopicForm id={id} title={title} description={description} />;
+  return <EditPublishedForm id={id} title={title} tag={tag} tagImage={tagImage} Readtime={Readtime} story={story}  />;
 }
