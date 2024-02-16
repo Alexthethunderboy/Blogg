@@ -72,11 +72,13 @@ export default function Profile() {
 
 const items = [
   {
-    title: 'Published',
-    content: (<Publish/>),
+    id: 1,
+    title: "Published",
+    content: <Publish />,
   },
   {
-    title: 'Draft',
-    content: (<Draft/> ),
+    id: 2,
+    title: "Draft",
+    content: <Draft />,
   },
-]
+];

@@ -1,8 +1,9 @@
 import mongoose from 'mongoose';
+// import Script from 'next/script';
 
 const { Schema } = mongoose
 
-const publishedBlogSchema = new Schema(
+const publishedSchema = new Schema(
     {
         title: {
             type : String,
@@ -19,12 +20,12 @@ const publishedBlogSchema = new Schema(
             required: true,
         },
 
-        ReadTime: {
+        readtime: {
             type: String,
             required: true
         },
 
-        Story: {
+        story: {
             type: String,
             required: true,
         }
@@ -32,6 +33,6 @@ const publishedBlogSchema = new Schema(
     { timestamps : true }
 )
 
-const PublishedBlog = mongoose.models.PublishedBlog || mongoose.model("PublishedBlog", publishedBlogSchema );
+const Published = mongoose.models.Published || mongoose.model( "Published", publishedSchema );
 
-export default PublishedBlog
+export default Published

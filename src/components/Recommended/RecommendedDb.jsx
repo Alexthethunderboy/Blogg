@@ -1,7 +1,7 @@
-import image1 from '@/Frame 30.png'
-import image2 from '@/Frame 30 (1).png'
-import image3 from '@/Frame 30 (2).png'
-import image4 from '@/Vector (1).png'
+import image1 from '@/assets/Frame 30.png'
+import image2 from '@/assets/Frame 30 (1).png'
+import image3 from '@/assets/Frame 30 (2).png'
+import image4 from '@/assests/Vector4.png'
 
 
 

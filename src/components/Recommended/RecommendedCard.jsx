@@ -1,5 +1,5 @@
 import Image from "next/image";
-import image4 from "@/Vector (1).png";
+import image4 from "@/assests/Vector1.png";
 
 function RecommendedCard(props) {
   return (
