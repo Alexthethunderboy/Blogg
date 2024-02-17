@@ -9,10 +9,11 @@ import apple from "@/assets/apple.png";
 import google from "@/assets/google.png";
 // import eye from "@/assets/eye.png";
 import Image from "next/image";
-import styles from "@/app/signUp/SignUp.module.css";
+import styles from "@/app/(workgroup)/signIn/SignIn.module.css"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
+import Link from "next/link"
 
 export default function SignUpPage() {
   const [show, setShow] = useState(false);
@@ -29,7 +30,7 @@ export default function SignUpPage() {
 
   useEffect(() => {
     if (status === "authenticated") {
-      router.replace("/profile");
+      router.replace("/");
     }
   }, [status, router]);
 
@@ -96,10 +97,10 @@ export default function SignUpPage() {
 
   return (
     <div className="w-full xl:h-screen ">
-      <div className="xl:bg-gray flex ">
+      <div className="xl:bg-gray flex gap-8 ">
         <div className="xl:w-[600px]">
           <Image
-            className=" hidden xl:block xl:h-[630px]"
+            className=" hidden xl:block xl:h-screen xl:w-full"
             src={signupImage}
             alt="image"
           />
@@ -107,11 +108,13 @@ export default function SignUpPage() {
 
         <div className="xl:w-[50%] w-full bg-white">
           <div className="h-[600px] xl:h-0">
-            <div className="xl:ml-[70px] text-center">
-              <h1 className="mt-5 text-[#26BDD2] font-bold text-3xl mb-2 ">
+            <div className="xl:ml-[70px] text-center cursor-pointer">
+              <Link href='/'>
+              <h1 className="xl:mt-[8rem] xl:mr-[4rem] text-[#26BDD2] font-bold text-3xl mb-2  active:scale-0 mt-8 ">
                 BLOGG
               </h1>
-              <p className="font-semibold mb-2">Join Blogg</p>
+              </Link>
+              <p className="font-semibold mb-2 xl:mr-[4.5rem]">Join Blogg</p>
               <h5 className="text-center mb-5">
                 Enter your email address to create an account with us
               </h5>
@@ -161,27 +164,27 @@ export default function SignUpPage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-[#26BDD2] py-1 mt-3 text-white rounded-md"
+                  className="w-full bg-[#26BDD2] py-1 mt-3 text-white rounded-md active:scale-0"
                 >
                   Sign In
                 </button>
               </form>
             </div>
-            <div className="px-5 flex mb-1 pt-2 items-center">
+            <div className="px-5 ml-[10.5rem] flex mb-1 pt-2 items-center xl:ml-[19rem]">
               <span className={styles.spn}>or</span>
             </div>
 
-            <span className="px-5 xl:ml-[180px] ml-[130px]">Sign up with</span>
+            <span className="px-5 xl:ml-[16.8rem] ml-[130px]">Sign up with</span>
             <div className="flex justify-around px-5 xl:mt-6 mt-6 items-center">
-              <div className="border border-gray-500 py-1 px-2 rounded-sm">
+              <div className="border border-gray-500 py-1 px-2 rounded-sm cursor-pointer">
                 <Image className="w-9" src={facebook} alt="image" />
               </div>
 
-              <div className="border border-gray-500 py-1 px-2 rounded-sm">
+              <div className="border border-gray-500 py-1 px-2 rounded-sm cursor-pointer">
                 <Image className="w-9" src={apple} alt="image" />
               </div>
 
-              <div className="border border-gray-500 py-[6px] px-2 rounded-sm">
+              <div className="border border-gray-500 py-[6px] px-2 rounded-sm cursor-pointer">
                 <Image className="w-7" src={google} alt="image" />
               </div>
             </div>
