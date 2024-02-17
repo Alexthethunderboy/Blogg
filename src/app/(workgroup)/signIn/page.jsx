@@ -64,7 +64,7 @@ export default function SignUpPage() {
       console.log(newRes);
       if (res?.error) {
         setErrors("Invalid email or password");
-        if (res?.url) router.replace("/profile");
+        if (res?.url) router.replace("/");
       } else {
         setErrors("");
       }
