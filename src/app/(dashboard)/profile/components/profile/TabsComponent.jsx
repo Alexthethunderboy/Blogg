@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import styles from "@/app/profile/components/Published.module.css";
+import styles from "@/app/(dashboard)/profile/components/Published.module.css";
 
 
 const TabsComponent = ({items}) => {

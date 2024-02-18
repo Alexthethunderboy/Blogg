@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import ellipse from "@/assets/ellipse.png";
-import styles from "@/app/profile/components/Published.module.css";
+// import styles from "@/app/(dashboard)/profile/components/Published.module.css";
 // import makeup from "@/assets/makeup.png";
 // import ship from "@/assets/ship.png";
 // import fire from "@/assets/fire.png";
