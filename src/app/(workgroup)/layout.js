@@ -1,6 +1,16 @@
+<<<<<<< HEAD
 import { Inter } from "next/font/google";
 import "../(dashboard)/globals.css";
 import { NextAuthProvider } from "@/Utils/NextAuthProvider";
+=======
+
+
+import { Inter } from "next/font/google";
+import "../(dashboard)/globals.css";
+import Navbar from "@/components/Navbar/Navbar";
+import Footer from "@/components/Footer/Footer";
+import { NextAuthProvider } from "@/utils/NextAuthProvider";
+>>>>>>> 3977a4349a9a651c6be4f27eb77ecd97aa86f7fb
 import { getServerSession } from "next-auth";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -11,11 +21,21 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
+<<<<<<< HEAD
   const session = await getServerSession();
   return (
     <html lang="en">
       <body className={inter.className}>
         <NextAuthProvider session={session}>{children}</NextAuthProvider>
+=======
+  const session = await getServerSession()
+  return (
+    <html lang="en">
+      <body className={inter.className}>
+        <NextAuthProvider session={session} >
+          {children}
+        </NextAuthProvider>
+>>>>>>> 3977a4349a9a651c6be4f27eb77ecd97aa86f7fb
       </body>
     </html>
   );
