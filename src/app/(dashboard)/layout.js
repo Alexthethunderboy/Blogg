@@ -1,10 +1,10 @@
 
 
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "@/app/(dashboard)/globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
-import { NextAuthProvider } from "@/utils/NextAuthProvider";
+import { NextAuthProvider } from "@/Utils/NextAuthProvider";
 import { getServerSession } from "next-auth";
 
 const inter = Inter({ subsets: ["latin"] });

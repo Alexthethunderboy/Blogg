@@ -9,7 +9,7 @@ import apple from "@/assets/apple.png";
 import google from "@/assets/google.png";
 // import eye from "@/assets/eye.png";
 import Image from "next/image";
-import styles from "@/app/(workgroup)/signUp/SignUp.module.css";
+import styles from "./SignIn.module.css"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
@@ -30,7 +30,7 @@ export default function SignUpPage() {
 
   useEffect(() => {
     if (status === "authenticated") {
-      router.replace("/(dashboard)/page.js");
+      router.replace("/");
     }
   }, [status, router]);
 

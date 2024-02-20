@@ -1,5 +1,7 @@
-import Homepage from "./Home/page";
+// import Homepage from "./Home/page";
 // import ProfileIndex from "./profile/page";
+
+import Homepage from "./Home/page";
 
 
 export default function Home() {
