@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 const Footer = () => {
   return (
-    <div className='md:w-full md:max-[1440px]:h-[100vh] h-auto bg-[#2B2A2A] text-white md:px-[5rem] md:pb-[2rem] md:pt-[3rem] px-5'>
+    <div className='md:w-full md:max-[1440px]:h-[68vh] h-auto bg-[#2B2A2A] text-white md:px-[5rem] md:pb-[2rem] md:pt-[3rem] px-5'>
       <div className='flex md:flex-row flex-col md:gap-[15rem] mb-[5rem]  '>
         <div className='md:mr-[10rem] '>
           <h1 className='text-[45px] text-[#26BDD2] font-extrabold mb-4'>BLOGG</h1>
