@@ -9,7 +9,7 @@ import apple from "@/assets/apple.png";
 import google from "@/assets/google.png";
 // import eye from "@/assets/eye.png";
 import Image from "next/image";
-import styles from "./SignIn.module.css"
+import styles from "@/app/(workgroup)/signIn/SignIn.module.css"
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";

@@ -32,7 +32,7 @@ const TabsComponent = ({items}) => {
 
         <div className=" p-2 rounded-xl">
           {items.map((item, index) => (
-            <div key={id} className={`${selectedTab === index ? "" : "hidden"}`}>
+            <div className={`${selectedTab === index ? "" : "hidden"}`}>
               {item.content}
             </div>
           ))}

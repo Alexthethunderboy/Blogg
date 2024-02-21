@@ -5,9 +5,9 @@ import { redirect } from "next/navigation";
 
 export default async function ProfileIndex() {
   const session = await getServerSession();
-  if (!session) {
-    redirect("/");
-  }
+  // if (!session) {
+  //   redirect("/");
+  // }
   return (
     <div>
         <Profile/>

@@ -1,3 +1,5 @@
+'use client'
+
 import React from "react";
 import Image from "next/image";
 import ellipse from "@/assets/ellipse.png";
@@ -10,8 +12,10 @@ import Link from "next/link";
 import TabsComponent from "./TabsComponent";
 import Publish from "./publish/page";
 import Draft from "./draft/page";
+import { useSession } from "next-auth/react";
 
 export default function Profile() {
+  const {data : session} = useSession();
   return (
     <div className="w-full md:max-w-[1440px]">
       <div className="w-[90%] md:w-[85%] mx-auto h-[auto] flex md:flex-row flex-col items-center py-10 gap-x-6">
@@ -20,9 +24,19 @@ export default function Profile() {
         </div>
         <div className="w-full flex flex-col md:flex-row items-baseline">
           <div className="w-full">
-            <h1 className="font-semibold text-3xl text-center md:text-left pt-4 md:pt-0 mb-3">
+            {!session ? (
+              <>
+              <h1 className="font-semibold text-3xl text-center md:text-left pt-4 md:pt-0 mb-3">
               Jane Doe
+             </h1>
+              </>
+            ) : (
+              <>
+              <h1 className="font-semibold text-3xl text-center md:text-left pt-4 md:pt-0 mb-3">
+              {session.user?.name}
             </h1>
+            </>
+            )}
             <p className="w-full md:w-[607px]  text-center md:text-start md:ml-0 ">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea,
               dolore! Qui ratione fuga distinctio facere ipsum natus praesentium

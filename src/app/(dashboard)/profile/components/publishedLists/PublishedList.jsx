@@ -5,6 +5,7 @@ import dots from '@/assets/dots.png'
 import send from "@/assets/send.png";
 import edit from "@/assets/edit.png";
 import del from "@/assets/delete.png"
+import { IoMdEye } from "react-icons/io";
 
 export default function PublishedList({ img, views, beauty, title }) {
     const [show, setShow] = useState(false);
@@ -22,7 +23,10 @@ export default function PublishedList({ img, views, beauty, title }) {
         <button className="bg-[#26BDD2] text-white px-2 rounded-md py-1 mr-3 md:mr-0">
           {beauty}
         </button>
-        <Image src={views} alt="views" width={60} height={60} />
+        <div className="flex gap-1 items-center">
+          <IoMdEye/>
+          <p>views</p>
+        </div>
         {/* <span className="text-[#26BDD2] text-4md rounded-[50%] mb-5 absolute top-10 left-[26%]">.</span> */}
           <span className="flex items-center gap-x-2"> <span className="bg-[#26BDD2] block rounded-md  w-[5px] h-[5px] "></span>4 mins read</span>
           <span>09/09/2023</span>
@@ -47,7 +51,7 @@ export default function PublishedList({ img, views, beauty, title }) {
         width={200} height={200}
       />
        {show && (
-        <div className="bg-[#26BDD2] inline-flex flex-col w-[90px] h-[85px] rounded-md text-white pt-3 ml-5 mb-4 p-[10px] absolute right-5">
+        <div className="bg-white inline-flex flex-col w-[90px] h-[85px] rounded-md text-black shadow-md pt-3 ml-5 mb-4 p-[10px] absolute right-5">
           <div className="flex gap-2 mb-2">
             <Image className="w-[12px] h-[12px] cursor-pointer" src={send} alt="send" width={200} height={200}/>
             <span className="text-[10px]">Published</span>
