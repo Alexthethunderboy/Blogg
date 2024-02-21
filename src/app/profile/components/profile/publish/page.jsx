@@ -1,51 +1,40 @@
 import React from "react";
 import { profileData } from "../ProfileDb";
 import PublishedList from "../../publishedLists/PublishedList";
-import RemoveBtn from "../../buttons/RemoveBtn";
 
 const getPublishedBlog = async () => {
-  try {
-    const res = await fetch("http://localhost:3001/api/published", {
-      cache: "no-store",
-    });
+  const res = await fetch("http://localhost:3000/api/published", {
+    cache: "no-store",
+  });
 
-    if (!res.ok) {
-      throw new Error("Failed to fetch topics");
-    }
-
-    return res.json();
-  } catch (error) {
-    console.log("Error loading topics: ", error);
+  if (!res.ok) {
+    throw new Error("Failed to fetch published Blogs");
   }
-};
+
+  return await res.json();
+}
 
 export default async function Publish() {
   const { publishedBlog } = await getPublishedBlog();
   return (
     <div>
-
-      {publishedBlog.map((p) => (
-        <div
-          key={p._id}
-          className="p-4 border border-slate-300 my-3 flex justify-between gap-5 items-start"
-        >
-          <div>
-            <h2 className="font-bold text-2xl">{p.title}</h2>
-            <div>{p.tag}</div>
-            <div>{p.tagImage}</div>
-            <div>{p.readtime}</div>
-            <div>{p.story}</div>
-            {/* title, tag, tagImage, readtime, story */}
+      <div>
+        {publishedBlog.map((p) => (
+          <div
+            key={p._id}
+            className="w-full mx-auto"
+          >
+            <PublishedList
+              img={p.tagImage}
+              // views={p.readtime}
+              title={p.title}
+              beauty={p.tag}
+              href={`/Published/components/editBlog/${p._id}`}
+              removeId={p._id}
+            />
           </div>
-
-          <div className="flex gap-2">
-            <RemoveBtn id={t._id} />
-            <Link href={`/editPublished/${t._id}`}>
-              <HiPencilAlt size={24} />
-            </Link>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       {profileData.map((pro) => (
         <div key={pro.id}>
@@ -57,8 +46,8 @@ export default async function Publish() {
           />
         </div>
       ))}
-
-      { }
     </div>
   );
 }
+
+

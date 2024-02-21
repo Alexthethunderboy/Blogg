@@ -29,7 +29,7 @@ const schema = yup
   })
   .required();
 
-export default function EditPublishedForm({ id, title, tag, tagImage, readtime, story }) {
+export default function EditDraftedForm({ id, title, tag, tagImage, readtime, story }) {
   const CLOUD_NAME = 'dnd3am4dm'
   const UPLOAD_PRESET = 'blog-project123'
 

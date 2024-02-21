@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import Image from "next/image";
 import ellipse from "@/assets/ellipse.png";
@@ -10,8 +12,14 @@ import Link from "next/link";
 import TabsComponent from "./TabsComponent";
 import Publish from "./publish/page";
 import Draft from "./draft/page";
+import { useSession } from "next-auth/react";
 
 export default function Profile() {
+  const { data: session } = useSession();
+
+  const { user } = session;
+    const username = user.email
+
   return (
     <div className="w-full md:max-w-[1440px]">
       <div className="w-[90%] md:w-[85%] mx-auto h-[auto] flex md:flex-row flex-col items-center py-10 gap-x-6">
@@ -21,7 +29,8 @@ export default function Profile() {
         <div className="w-full flex flex-col md:flex-row items-baseline">
           <div className="w-full">
             <h1 className="font-semibold text-3xl text-center md:text-left pt-4 md:pt-0 mb-3">
-              Jane Doe
+              {/* Jane Doe */}
+              {username}
             </h1>
             <p className="w-full md:w-[607px]  text-center md:text-start md:ml-0 ">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea,
@@ -42,17 +51,8 @@ export default function Profile() {
       </div>
 
       <div className="w-[90%] md:w-[85%] mx-auto mb-1 ">
-        {/* <div className={styles.container}>
-          <Link href={"/profile/components/profile/publish"}>
-            <button className={styles.btn}>Published</button>
-          </Link>
-          <Link href={"/profile/components/profile/draft"}>
-            <button className={styles.btn}>Draft</button>
-          </Link>
-        </div> */}
         <div className="px-[1.5rem]">
           <TabsComponent items={items}/>
-
         </div>
       </div>
       <div className="flex items-center justify-center space-x-5 mb-3 ">
