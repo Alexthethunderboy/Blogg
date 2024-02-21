@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose
 
-const publishedBlogSchema = new Schema(
+const draftBlogSchema = new Schema(
     {
         title: {
             type : String,
@@ -32,6 +32,6 @@ const publishedBlogSchema = new Schema(
     { timestamps : true }
 )
 
-const PublishedBlog = mongoose.models.PublishedBlog || mongoose.model("PublishedBlog", publishedBlogSchema );
+const DraftBlog = mongoose.models.DraftBlog || mongoose.model("DraftBlog", draftBlogSchema );
 
-export default PublishedBlog
+export default DraftBlog

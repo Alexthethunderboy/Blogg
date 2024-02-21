@@ -1,12 +1,22 @@
-'use client'
+"use client"
+
 import React from 'react'
 import RecommendedCard from './RecommendedCard'
 import { recommended } from './RecommendedDb'
 import { useSession } from 'next-auth/react'
 
 const Recommended = () => {
-  const {data: session, status} = useSession();
-  // if (status === 'authenticated'){
+  
+  const { data: session, status } = useSession()
+  if (status === 'loading') {
+    return <p>Loading...</p>
+}
+
+if (status === 'unauthenticated') { 
+    return <p className=''>
+        Not Available
+    </p>
+}
   return (
     <div className='xl:py-[5rem] py-[2rem]'>
         <h1 className='text-[34px] xl:pb-3'>Recommended</h1>

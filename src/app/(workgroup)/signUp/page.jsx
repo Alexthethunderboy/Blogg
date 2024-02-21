@@ -44,7 +44,7 @@ export default function SignUpPage() {
     if (Object.keys(validationErrors).length === 0) {
       console.log(formData);
       try {
-        const res = await fetch("/api/signup", {
+        const res = await fetch("http://localhost:3000/api/signup", {
           method: "POST",
           headers: {
             "content-Type": "aplication/json",
