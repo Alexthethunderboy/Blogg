@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Vector1 from "@/assests/Vector1.png";
+import Vector1 from "@/assets/Vector1.png";
 import Image from "next/image";
-import Vector2 from "@/assests/Vector2.png";
-import Vector3 from "@/assests/Vector3.png";
-import Vector4 from "@/assests/Vector4.png";
-import "@/app/globals.css";
+import Vector2 from "@/assets/Vector2.png";
+import Vector3 from "@/assets/Vector3.png";
+import Vector4 from "@/assets/Vector4.png";
+import "@/app/(dashboard)/globals.css";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";

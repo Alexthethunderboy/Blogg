@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Vector1 from "@/assests/Vector1.png";
-import Vector2 from "@/assests/Vector2.png";
-import Vector3 from "@/assests/Vector3.png";
-import Vector4 from "@/assests/Vector4.png";
+import Vector1 from "@/assets/Vector1.png";
+import Vector2 from "@/assets/Vector2.png";
+import Vector3 from "@/assets/Vector3.png";
+import Vector4 from "@/assets/Vector4.png";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
