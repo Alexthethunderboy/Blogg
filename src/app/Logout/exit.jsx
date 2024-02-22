@@ -1,11 +1,11 @@
 import React from 'react'
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
 
 
 export default function Logout() {
 
-    const {data: session } = useSession();
+    // const {data: session } = useSession();
     return (
         <div className="w-full h-auto bg-none text-black flex justify-center items-center absolute  top-[8rem] right-[2rem] overflow-hidden">
             <div className="border border-solid rounded-xl flex flex-col bg-white w-[417px] h-[350px] px-[54px] pt-[64px] pb-[13px]" >

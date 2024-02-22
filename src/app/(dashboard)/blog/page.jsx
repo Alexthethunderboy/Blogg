@@ -97,14 +97,14 @@ export default async function Blog() {
               Consectetur diam sed aliquam duis tortor ipsum. Tempor ultrices viverra auctor aliquam placerat sit. Nunc amet dui in nibh. Diam leo duis feugiat ullamcorper. Lorem quam dictum nisi tincidunt. Platea a pellentesque platea fames bibendum eget ac quis. Volutpat a nunc sed elementum sed lacus. At est senectus lectus semper viverra.
             </p>
         </div>
-      </div>
+        </div>
         <p className='pt-4 xl:w-[px]'>
           Lorem ipsum dolor sit amet consectetur. Mi adipiscing facilisis elementum amet. Suspendisse sit quis morbi justo maecenas tellus. Auctor risus orci proin tincidunt duis lacus. Senectus vitae in mauris phasellus at quam. Orci massa elit in elit. Consequat commodo sed blandit lorem dapibus.
           Id arcu commodo non facilisis leo blandit. Aliquet nibh sed semper gravida posuere viverra potenti. Quam a sit hendrerit et donec diam nulla nunc metus. Quis neque quam risus tincidunt. Volutpat venenatis blandit tortor aliquam enim mauris facilisi massa. Mauris elit placerat consequat posuere convallis. Leo eu egestas non egestas facilisis. Dui curabitur massa sed enim a purus laoreet sed at. Porta magna egestas magna malesuada ultrices. Arcu ornare volutpat morbi ut. Iaculis sagittis eget consequat turpis tellus tellus dolor morbi facilisis. Pulvinar quam mollis viverra dis magna purus.
           Morbi quisque metus eget iaculis eu placerat. Consectetur tristique in viverra velit malesuada nunc neque elementum. Commodo semper enim volutpat lorem habitasse libero. Pellentesque quam mi sodales dolor et at est. Ultrices imperdiet non lorem lorem consectetur imperdiet volutpat netus sem. Sit arcu tempus leo non elit elit purus. Enim aliquet vel semper vulputate nunc dui sapien lectus.
         </p>
       </div>
-      
+      <Recommended/>
     </div>
     )}
     </div>

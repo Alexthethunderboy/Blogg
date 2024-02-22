@@ -33,7 +33,7 @@ export default function Profile() {
             ) : (
               <>
               <h1 className="font-semibold text-3xl text-center md:text-left pt-4 md:pt-0 mb-3">
-              {session.user?.name}
+              {session.user?.email}
             </h1>
             </>
             )}

@@ -51,14 +51,14 @@ export default function NewBlog() {
       return null
   }
 
-  const {
-    register,
-    handleSubmit: handleSubmitForm,
-    watch,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  // const {
+  //   register,
+  //   handleSubmit: handleSubmitForm,
+  //   watch,
+  //   formState: { errors },
+  // } = useForm({
+  //   resolver: yupResolver(schema),
+  // });
 
 
   const onSubmitPublish = async (data) => {
