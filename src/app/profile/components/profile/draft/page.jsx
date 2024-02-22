@@ -29,7 +29,7 @@ export default async function Draft() {
               // views={p.readtime}
               title={p.title}
               beauty={p.tag}
-              href={`/Published/components/editBlog/${p._id}`}
+              href={`/Published/components/editDraftBlog/${p._id}`}
               removeId={p._id}
             />
           </div>
