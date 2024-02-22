@@ -26,7 +26,7 @@ const Homepage = () => {
   
   
   return (
-    <section className="border-t-2 border-blue-400">
+    <section className="border-t border-[#26BDD2]">
       <div className="md:mx-[5rem] mt-10 md:flex mx-5">
         <div className="md:basis-1/2 flex flex-col items-center justify-center text-center md:text-start md:items-start  gap-5">
           <h1 className="md:text-7xl text-6xl font-bold md:w-[29rem]">
@@ -60,7 +60,7 @@ const Homepage = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row md:gap-5 mt-10 border-t-2 border-blue-400">
+      <div className="flex flex-col md:flex-row md:gap-5 mt-10 border-t border-[#26BDD2]">
         <div className="md:ms-[5rem] mx-5 md:mx-0 flex  flex-col gap-5 md:basis-1/2 mt-10">
           <h1 className="text-2xl font-bold">Trending</h1>
           <Image src={img2} alt="main"/>

@@ -49,45 +49,117 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
   });
 
   const router = useRouter();
-
-  const onSubmit = async (data, e) => {
-    // setNewTitle(e.target[0].value)
-    // setNewTag(e.target[1].value)
-    // setPhoto(e.target[2].files[0])
-    // setNewReadtime(e.target[3].value)
-    // setNewStory(e.target[4].value)
-    // const title = e.target[0].value; 
-    // const tag = e.target[1].value; 
-    // const photo = e.target[2].files[0] 
-    // const readtime = e.target[3].value; 
-    // const story = e.target[4].value; 
-
-
-    console.log(newTitle, newTag, photo, newReadtime, newStory);
-    try {
-      const newTagImage = await uploadImage(photo)
-
-      const res = await fetch(`/api/published/${id}`, {
-        method: "PUT",
-        headers: {
-          "content-Type": "aplication/json",
-        },
-        body: JSON.stringify({ newTitle, newTag, newTagImage, newReadtime, newStory }),
-      });
-
-      if (res.status === 201) {
-        router.push("/profile");
-        alert(`succesfully sent`)
-      } else {
-        throw new Error("Failed to edit publish ");
-      }
-      if (res.status === 500) {
-        alert(`There's a problem`);
-      }
-    } catch (error) {
-      console.log(error);
+  
+  const { setValue } = useForm({
+    defaultValues: {
+       file: "",
     }
-  };
+  })
+  const photoValue = watch("photo");
+
+  function handleFileChange () {
+    const file = e.target.files[0];
+    setValue("photo", file);
+  }
+
+  const onSubmit = async (data) => {
+    const buttonType = window.event.submitter.name
+    const {newTitle, newTag, newReadtime, newStory } = data;
+
+    const photo2 = photoValue[0]
+    console.log(photo2);
+
+    if(buttonType === "publish"){
+      //HANDLE Publish FUNCTION
+      try {
+        const newTagImage = await uploadImage(photo2)
+  
+        const res = await fetch("http://localhost:3000/api/published", {
+          method: "POST",
+          headers: {
+            "content-Type": "application/json",
+          },
+          body: JSON.stringify( {newTitle, newTag, newTagImage, newReadtime, newStory} ),
+        });
+  
+        if (res.status === 201) {
+          toast("successfully Published")
+          return router.push("/profile");
+          // alert(`succesfully sent`)
+  
+        } else {
+          throw new Error("Failed to publish");
+        }
+        if (res.status === 500) {
+          alert(`There's a problem`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      return;
+      }
+  
+      if(buttonType === "draft"){
+       //HANDLE DRAFT FUNC
+       try {
+        const newTagImage = await uploadImage(photo2)
+  
+        const res = await fetch("http://localhost:3000/api/draft", {
+          method: "POST",
+          headers: {
+            "content-Type": "application/json",
+          },
+          body: JSON.stringify({newTitle, newTag, newTagImage, newReadtime, newStory}),
+        });
+  
+        if (res.status === 201) {
+          router.push("/profile");
+          alert(`succesfully sent`)
+        } else {
+          throw new Error("Failed to publish");
+        }
+        if (res.status === 500) {
+          alert(`There's a problem`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      return;
+      }
+
+    };
+
+
+
+
+  // const onSubmit = async (data, e) => {
+
+
+  //   console.log(newTitle, newTag, photo, newReadtime, newStory);
+  //   try {
+  //     const newTagImage = await uploadImage(photo)
+
+  //     const res = await fetch(`/api/published/${id}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "content-Type": "aplication/json",
+  //       },
+  //       body: JSON.stringify({ newTitle, newTag, newTagImage, newReadtime, newStory }),
+  //     });
+
+  //     if (res.status === 201) {
+  //       router.push("/profile");
+  //       alert(`succesfully sent`)
+  //     } else {
+  //       throw new Error("Failed to edit publish ");
+  //     }
+  //     if (res.status === 500) {
+  //       alert(`There's a problem`);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   
   const uploadImage = async (photo) => {
@@ -130,7 +202,7 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             type="text"
             placeholder="Enter title here"
             name="text"
-            {...register("title")}
+            {...register("newTitle")}
             onChange={(e) => setNewTitle(e.target.value)}
             value={newTitle}
           />
@@ -145,7 +217,7 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             type="text"
             placeholder="Enter tags here"
             name="text"
-            {...register("tag")}
+            {...register("newTag")}
             onChange={(e) => setNewTag(e.target.value)}
             value={newTag}
           />
@@ -168,8 +240,7 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             accept=".jpg, .png, .jpeg"
             placeholder="Choose cover image from files"
             {...register("photo")}
-            onChange={(e) => setPhoto(e.target.files[0])}
-            // value={photo}
+            onChange={handleFileChange}
           />
           <label htmlFor='image' className="md:w-[300px] text-center ms-10 bg-[#26BDD2] text-white py-2 px-2 text-xs md:text-sm">
             Upload cover image
@@ -185,7 +256,7 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             type="text"
             placeholder="Enter read time"
             name="readtime"
-            {...register("readtime")}
+            {...register("newReadtime")}
             onChange={(e) => setNewReadtime(e.target.value)}
             value={newReadtime}
           />
@@ -197,21 +268,25 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             className=" focus:outline-none w-full h-[50vh] md:h-[80vh] border border-gray-400 p-2 rounded-md"
             type="text"
             placeholder="Write your story here"
-            {...register("story")}
+            {...register("newStory")}
             onChange={(e) => setNewStory(e.target.value)}
             value={newStory}
           />
         </div>
            <p className="text-red-500 ml-4">{errors.story?.message}</p>
         <div className="flex justify-between p-2">
-          <button
+        <button
             type="submit"
+            name="publish"
+            // onClick={handleSubmitForm(onSubmitPublish)}
             className="ml-2 md:py-3 md:px-[230px] px-11 py-3 rounded-md border text-white bg-[#26BDD2]"
           >
             Publish
           </button>
 
-          <button className="mr-2 md:py-3 md:px-[230px] px-8 py-3 rounded-md border border-cyan-200 text-black bg-blue-50">
+          <button 
+            // onClick={handleSubmitForm(onSubmitDraft)}
+           type="submit" name="draft" className="mr-2 md:py-3 md:px-[230px] px-8 py-3 rounded-md border border-cyan-200 text-black bg-blue-50">
             Save to drafts
           </button>
         </div>

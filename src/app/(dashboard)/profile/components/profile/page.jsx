@@ -17,7 +17,7 @@ import { useSession } from "next-auth/react";
 export default function Profile() {
   const {data : session} = useSession();
   return (
-    <div className="w-full md:max-w-[1440px]">
+    <div className="w-full md:max-w-[1440px] border-t border-[#26BDD2]">
       <div className="w-[90%] md:w-[85%] mx-auto h-[auto] flex md:flex-row flex-col items-center py-10 gap-x-6">
         <div className="w-[4rem] md:w-[228px] ">
           <Image className="w-full" src={ellipse} alt="profile-image" />
