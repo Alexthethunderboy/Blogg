@@ -4,10 +4,15 @@ import React, { useState } from "react";
 import ham from "@/assets/hamburger.png";
 import Image from "next/image";
 import styles from "@/components/Navbar/Navbar.module.css";
+import ellipse from "@/assets/ellipse.png";
 import { signOut, useSession } from "next-auth/react";
+import EditLogout from "../../app/profileModal/ViewModal";
+
 
 const Navbar = () => {
   const [show, setShow] = useState();
+  const [OpenPro, setOpenPro] = useState(false);
+  const [OpenExit, setOpenExit] = useState(false);
   const { data: session } = useSession();
   const handleShow = () => {
     setShow(!show);
@@ -40,10 +45,10 @@ const Navbar = () => {
                   </button>
                 </Link>
                 <Link href={"/signIn"}>
-                  <button className="w-[150px] h-[50px] border-solid bg-white text-black rounded-lg text-[18px] font-medium">
-                    Sign In
-                  </button>
-                </Link>
+                 <button className="w-[150px] h-[50px] border-solid bg-white text-black rounded-lg text-[18px] font-medium">
+                  Signin
+                 </button>
+                </Link> 
               </div>
             </div>
           )}
@@ -79,16 +84,21 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              {session.user?.email}
+              {/* {session.user?.email} */}
               <li>
-                <button
+                {/* <button
                   onClick={() => {
                     signOut();
                   }}
                   className="p-2 px-5 -mt-1 bg-blue-800 rounded-full"
                 >
                   Logout
-                </button>
+                </button> */}
+                <Link href={ellipse}>
+                <Image className="border-[2px] border-[#26BDD2] border-solid rounded-full w-[46px] h-[46px]" 
+                 onClick={() => setOpenPro((prev) => !prev)}
+                src={ellipse} alt="" />
+                </Link>
               </li>
             </>
           )}
@@ -107,6 +117,14 @@ const Navbar = () => {
           <Image src={ham} width={50} alt=""/>
         </div>
       </nav>
+
+      {OpenPro && <EditLogout />}
+      
+      
+      
+      
+      
+      
     </div>
   );
 };

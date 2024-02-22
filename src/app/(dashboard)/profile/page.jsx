@@ -2,6 +2,8 @@ import React from 'react'
 import Profile from './components/profile/page'
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
+import Logout from '@/app/Logout/exit'
+
 
 export default async function ProfileIndex() {
   const session = await getServerSession();
@@ -11,6 +13,7 @@ export default async function ProfileIndex() {
   return (
     <div>
         <Profile/>
+        <Logout/>
     </div>
   )
 }
