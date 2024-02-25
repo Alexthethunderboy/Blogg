@@ -43,7 +43,7 @@ export default function SignUpPage() {
     if (Object.keys(validationErrors).length === 0) {
       console.log(formData);
       try {
-        const res = await fetch("http://localhost:3000/api/signup", {
+        const res = await fetch("https://blogg-git-final-alexthethunderboys-projects.vercel.app/api/signup", {
           method: "POST",
           headers: {
             "content-Type": "aplication/json",

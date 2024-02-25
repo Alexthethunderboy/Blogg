@@ -7,84 +7,105 @@ import Vector2 from "@/assests/Vector2.png";
 import Vector3 from "@/assests/Vector3.png";
 import Vector4 from "@/assests/Vector4.png";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
-const schema = yup
-  .object({
-    title: yup.string().required('title is required ')
-    .min(4, 'title cannot be less than 4')
-    .max(40, 'title cannot be more than 40'),
-    tag: yup.string().required('tag is required ')
-    .min(4, 'tag cannot be less than 4')
-    .max(25, 'tag cannot be more than 25'),
-    photo: yup.string().required('photo is required '),
-    readtime: yup.string().required('readtime is required ')
-    .min(4, 'readtime cannot be less than 4')
-    .max(20, 'readtime cannot be more than 10'),
-    story: yup.string().required('story is required ')
-    .min(10, 'story cannot be less than 10')
-    .max(100, 'story cannot be more than 100'),
-  })
-  .required();
+
 
 export default function EditPublishedForm({ id, title, tag, tagImage, readtime, story }) {
   const CLOUD_NAME = 'dnd3am4dm'
   const UPLOAD_PRESET = 'blog-project123'
 
+  const [errors, setErrors] = useState({})
   const [newTitle, setNewTitle] = useState(title);
   const [newTag, setNewTag] = useState(tag);
   const [photo, setPhoto] = useState(tagImage);
   const [newReadtime, setNewReadtime] = useState(readtime);
   const [newStory, setNewStory] = useState(story);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-
   const router = useRouter();
-  
-  const { setValue } = useForm({
-    defaultValues: {
-       file: "",
-    }
-  })
-  const photoValue = watch("photo");
 
-  function handleFileChange () {
-    const file = e.target.files[0];
-    setValue("photo", file);
+  const { data: session, status } = useSession()
+  if (status === 'loading') {
+    return <p>Loading...</p>
+
   }
 
-  const onSubmit = async (data) => {
-    const buttonType = window.event.submitter.name
-    const {newTitle, newTag, newReadtime, newStory } = data;
+  if (status === 'unauthenticated') {
+    router.push("/");
+    return null
+  }
 
-    const photo2 = photoValue[0]
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const buttonType = window.event.submitter.name
+
+    
+    let newErrors = {};
+
+    // Check for errors
+    if (!newTitle.trim()) {
+      newErrors.newTitle = "Title is required";
+    }else if (newTitle.trim().length < 5){
+      newErrors.newTitle = "Title cannot be less than 5";
+    }
+
+    if (!newTag.trim()) {
+      newErrors.newTag = "Tag is required";
+    }else if (newTag.trim().length < 5 ){
+      newErrors.newTag = "Tag cannot be less than 5";
+    }else if (newTag.trim().length > 20 ){
+      newErrors.newTag = "Tag cannot be more than 20";
+    }
+
+
+    if (!photo) {
+      newErrors.photo = "Photo is required";
+    }
+
+    if (!newReadtime.trim()) {
+      newErrors.newReadtime = "Readtime is required";
+    }else if (newReadtime.trim().length < 5){
+      newErrors.newReadtime = "Readtime cannot be less than 5";
+    }else if (newReadtime.trim().length > 20){
+      newErrors.newReadtime = "Readtime cannot be more than 20";
+    }
+
+    if (!newStory.trim()) {
+      newErrors.newStory = "Story is required";
+    }else if (newStory.trim().length < 25) {
+      newErrors.newStory = "Story cannot be less than 25";
+    }else if (newStory.trim().length > 150) {
+      newErrors.newStory = "Story cannot be more than 150";
+    }
+
+    // If there are errors, set them in the state
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    setErrors({});
+
+
+    const photo2 = photo[0]
     console.log(photo2);
 
     if(buttonType === "publish"){
       //HANDLE Publish FUNCTION
       try {
         const newTagImage = await uploadImage(photo2)
-  
-        const res = await fetch("http://localhost:3000/api/published", {
-          method: "POST",
+        // setPhoto(newTagImage)
+        const res = await fetch(`http://localhost:3000/api/published/${id}`, {
+          method: "PUT",
           headers: {
             "content-Type": "application/json",
           },
-          body: JSON.stringify( {newTitle, newTag, newTagImage, newReadtime, newStory} ),
+          body: JSON.stringify({newTitle, newTag, newTagImage, newReadtime, newStory}),
         });
   
-        if (res.status === 201) {
-          toast("successfully Published")
-          return router.push("/profile");
+        if (res.status === 200) {
+          toast("successfully updated Published")
+          return router.replace("/profile");
           // alert(`succesfully sent`)
   
         } else {
@@ -103,9 +124,8 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
        //HANDLE DRAFT FUNC
        try {
         const newTagImage = await uploadImage(photo2)
-  
-        const res = await fetch("http://localhost:3000/api/draft", {
-          method: "POST",
+        const res = await fetch(`http://localhost:3000/api/draft/${id}`, {
+          method: "PUT",
           headers: {
             "content-Type": "application/json",
           },
@@ -113,7 +133,7 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
         });
   
         if (res.status === 201) {
-          router.push("/profile");
+          router.replace("/profile");
           alert(`succesfully sent`)
         } else {
           throw new Error("Failed to publish");
@@ -129,37 +149,6 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
 
     };
 
-
-
-
-  // const onSubmit = async (data, e) => {
-
-
-  //   console.log(newTitle, newTag, photo, newReadtime, newStory);
-  //   try {
-  //     const newTagImage = await uploadImage(photo)
-
-  //     const res = await fetch(`/api/published/${id}`, {
-  //       method: "PUT",
-  //       headers: {
-  //         "content-Type": "aplication/json",
-  //       },
-  //       body: JSON.stringify({ newTitle, newTag, newTagImage, newReadtime, newStory }),
-  //     });
-
-  //     if (res.status === 201) {
-  //       router.push("/profile");
-  //       alert(`succesfully sent`)
-  //     } else {
-  //       throw new Error("Failed to edit publish ");
-  //     }
-  //     if (res.status === 500) {
-  //       alert(`There's a problem`);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   
   const uploadImage = async (photo) => {
@@ -192,22 +181,21 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
 
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <div className="w-[90%] mx-auto mb-14 py-[20rem">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <p className="ml-4 font-weight-500">Title</p>
         <div className="p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
           <Image src={Vector1} alt="" className="w-5 h-5" />
           <input
             className="w-full focus:outline-none"
             type="text"
-            placeholder="Enter title here"
+            placeholder="Enter newTitle here"
             name="text"
-            {...register("newTitle")}
             onChange={(e) => setNewTitle(e.target.value)}
             value={newTitle}
           />
         </div>
-           <p className="text-red-500 ml-4">{errors.title?.message}</p>
+           {errors.newTitle && <p className="text-red-500 ml-4">{errors.newTitle}</p>}
 
         <p className="md:ml-4 ml-4 font-weight-700">Tag</p>
         <div className="p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
@@ -217,12 +205,11 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             type="text"
             placeholder="Enter tags here"
             name="text"
-            {...register("newTag")}
             onChange={(e) => setNewTag(e.target.value)}
             value={newTag}
           />
         </div>
-           <p className="text-red-500 ml-4">{errors.tag?.message}</p>
+           {errors.newTag && <p className="text-red-500 ml-4">{errors.newTag}</p>}
 
         <p className="ml-4">Tag</p>
         <div className="ps-2 mr-4 ml-4 flex justify-between items-center border border-slate-500 rounded gap-2">
@@ -239,14 +226,13 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             id="file-upload"
             accept=".jpg, .png, .jpeg"
             placeholder="Choose cover image from files"
-            {...register("photo")}
-            onChange={handleFileChange}
+            onChange={(e) => setPhoto(e.target.files)}
           />
           <label htmlFor='image' className="md:w-[300px] text-center ms-10 bg-[#26BDD2] text-white py-2 px-2 text-xs md:text-sm">
             Upload cover image
           </label>
         </div>
-          <p className="text-red-500 ml-4">{errors.photo?.message}</p>
+          {errors.photo && <p className="text-red-500 ml-4">{errors.photo}</p>}
 
         <p className="md:ml-4 ml-4">Read time</p>
         <div className="w-[300px] p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
@@ -255,37 +241,33 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             className="focus:outline-none"
             type="text"
             placeholder="Enter read time"
-            name="readtime"
-            {...register("newReadtime")}
+            name="newReadtime"
             onChange={(e) => setNewReadtime(e.target.value)}
             value={newReadtime}
           />
         </div>
-          <p className="text-red-500 ml-4">{errors.readtime?.message}</p>
+          {errors.newReadtime && <p className="text-red-500 ml-4">{errors.newReadtime}</p>}
           <p className="md:ml-4 ml-4 text-black">Story</p>
         <div className=" mr-4 ml-4 flex items-center gap-2">
           <textarea
             className=" focus:outline-none w-full h-[50vh] md:h-[80vh] border border-gray-400 p-2 rounded-md"
             type="text"
-            placeholder="Write your story here"
-            {...register("newStory")}
+            placeholder="Write your newStory here"
             onChange={(e) => setNewStory(e.target.value)}
             value={newStory}
           />
         </div>
-           <p className="text-red-500 ml-4">{errors.story?.message}</p>
+           {errors.newStory && <p className="text-red-500 ml-4">{errors.newStory}</p>}
         <div className="flex justify-between p-2">
         <button
             type="submit"
             name="publish"
-            // onClick={handleSubmitForm(onSubmitPublish)}
             className="ml-2 md:py-3 md:px-[230px] px-11 py-3 rounded-md border text-white bg-[#26BDD2]"
           >
             Publish
           </button>
 
           <button 
-            // onClick={handleSubmitForm(onSubmitDraft)}
            type="submit" name="draft" className="mr-2 md:py-3 md:px-[230px] px-8 py-3 rounded-md border border-cyan-200 text-black bg-blue-50">
             Save to drafts
           </button>
@@ -295,148 +277,3 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
    
   );
 }
-
-// <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-//         <p className="ml-4 font-weight-500">Title</p>
-//         <div className="p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
-//           <Image src={Vector1} alt="titleImage" className="w-5 h-5" />
-//           <input
-//             className="w-full focus:outline-none"
-//             type="text"
-//             placeholder="Enter title here"
-//             name="text"
-//             onChange={(e) => setNewTitle(e.target.value)}
-//             value={newTitle}
-//             required
-//           />
-//         </div>
-
-//         <p className="md:ml-4 ml-4 font-weight-700">Tag</p>
-//         <div className="p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
-//           <Image src={Vector2} alt="tagImage" className="w-5 h-5" />
-//           <input
-//             className="w-full focus:outline-none"
-//             type="text"
-//             placeholder="Enter tags here"
-//             name="text"
-//             onChange={(e) => setNewTag(e.target.value)}
-//             value={newTag}
-//             required
-//           />
-//         </div>
-
-//         <p className="ml-4">Tag</p>
-//         <div className="ps-2 mr-4 ml-4 flex justify-between items-center border border-slate-500 rounded gap-2">
-//           {/* <label
-//             htmlFor="file-upload"
-//             className="md:pe-[50rem] pe-0 cursor-pointer"
-//           >
-//             <Image src={Vector3} alt="" className="w-5 h-5" />
-//           </label>
-//           <input
-//             className="w-full me-10 focus:outline-none"
-//             type="file"
-//             id="file-upload"
-//             accept=".jpg, .png, .jpeg"
-//             onChange={(e) => setPhoto(e.target.value)}
-//             placeholder="Choose cover image from files"
-//           />
-//           <button className="md:w-[300px] ms-10 bg-blue-400 text-white py-2 px-2 text-xs md:text-sm">
-//             Upload cover image
-//           </button> */}
-
-//           <label htmlFor='image'>
-//             Upload Image <Image src={Vector3} alt="uploadImage" className="w-5 h-5" />
-//           </label>
-//           <input id='image' type="file" style={{ display: 'none' }} onChange={(e) => setNewPhoto(e.target.files[0])}
-//           value={newPhoto} />
-//         </div>
-
-//         <p className="md:ml-4 ml-4">Read time</p>
-//         <div className="w-[300px] p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
-//           <Image src={Vector4} alt="readtime image" className="w-5 h-5" />
-//           {/* <label
-//             htmlFor="readtime"
-//             className="md:pe-[50rem] pe-0 cursor-pointer"
-//           >
-//             <Image src={Vector3} alt="" className="w-5 h-5" />
-//           </label> */}
-//           <input
-//             className="focus:outline-none"
-//             type="text"
-//             placeholder="Enter read time"
-//             name="readtime"
-//             onChange={(e) => setNewReadtime(e.target.value)}
-//             value={newReadtime}
-//             required
-//           />
-//         </div>
-
-//         <p className="md:ml-4 ml-4 text-black">Story</p>
-//         <div className=" p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
-//           <textarea
-//             className="md:mb-[450px] focus:outline-none"
-//             type="text"
-//             placeholder="Write your story here"
-//             onChange={(e) => setNewStory(e.target.value)}
-//             value={newStory}
-//             required
-//           />
-//         </div>
-//         <div className="flex justify-between p-2">
-//           <button
-//             type="submit"
-//             className="ml-2 md:py-3 md:px-[230px] px-11 py-3 rounded-md border text-white bg-blue-500"
-//           >
-//            Update Published Blog
-//           </button>
-//           <button className="mr-2 md:py-3 md:px-[230px] px-8 py-3 rounded-md border border-cyan-200 text-black bg-blue-50">
-//             Save to drafts
-//           </button>
-//         </div>
-//       </form>
-
-
-{/* 
-       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-      <input
-        onChange={(e) => setNewTitle(e.target.value)}
-        value={newTitle}
-        className="border border-slate-500 px-8 py-2"
-        type="text"
-        placeholder="Topic Title"
-      />
-
-      <input
-        onChange={(e) => setNewTag(e.target.value)}
-        value={newTag}
-        className="border border-slate-500 px-8 py-2"
-        type="text"
-        placeholder="Topic Description"
-      />
-      <input
-        onChange={(e) => setNewTagImage(e.target.value)}
-        value={newTagImage}
-        className="border border-slate-500 px-8 py-2"
-        type="text"
-        placeholder="Topic Description"
-      />
-      <input
-        onChange={(e) => setNewReadtime(e.target.value)}
-        value={newReadtime}
-        className="border border-slate-500 px-8 py-2"
-        type="text"
-        placeholder="Topic Description"
-      />
-      <input
-        onChange={(e) => setNewStory(e.target.value)}
-        value={newStory}
-        className="border border-slate-500 px-8 py-2"
-        type="text"
-        placeholder="Topic Description"
-      />
-
-      <button type="submit" className="bg-green-600 font-bold text-white py-3 px-6 w-fit">
-        Update Published Blog
-      </button>
-    </form> */}
