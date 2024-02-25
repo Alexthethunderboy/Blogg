@@ -13,9 +13,9 @@ function RecommendedCard(props) {
                 {/* <div className="pt-1">
                     <Image src={props.view} alt="" />
                 </div> */}
-                <div>
-                <IoMdEye/>
-                <p>views</p>
+                <div className="flex items-center gap-2">
+                    <IoMdEye/>
+                    <p>views</p>
                 </div>
             </div>
             <div className="flex relative">

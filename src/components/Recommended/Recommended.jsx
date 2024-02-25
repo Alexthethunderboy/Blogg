@@ -3,11 +3,11 @@
 import React from 'react'
 import RecommendedCard from './RecommendedCard'
 import { recommended } from './RecommendedDb'
-import { useSession } from 'next-auth/react'
+// import { useSession } from 'next-auth/react'
 
 const Recommended = () => {
   
-  const { data: session, status } = useSession()
+//   const { data: session, status } = useSession()
   if (status === 'loading') {
     return <p>Loading...</p>
 }
@@ -35,5 +35,6 @@ if (status === 'unauthenticated') {
     </div>
   )
 }
+// }
 
 export default Recommended
