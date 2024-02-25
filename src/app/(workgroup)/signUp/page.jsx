@@ -1,7 +1,6 @@
 "use client";
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
-import Link from "next/link";
 
 import React from "react";
 import signupImage from "@/assets/image.png";
@@ -10,7 +9,7 @@ import apple from "@/assets/apple.png";
 import google from "@/assets/google.png";
 // import eye from "@/assets/eye.png";
 import Image from "next/image";
-import styles from '@/app/(workgroup)/signUp/SignUp.module.css'
+import styles from "./SignUp.module.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -44,8 +43,7 @@ export default function SignUpPage() {
     if (Object.keys(validationErrors).length === 0) {
       console.log(formData);
       try {
-        const res = await fetch("https://blogg-git-final-alexthethunderboys-projects.vercel.app/signIn", {
-          mode: 'no-cors',
+        const res = await fetch("https://blogg-git-final-alexthethunderboys-projects.vercel.app/api/signup", {
           method: "POST",
           headers: {
             "content-Type": "aplication/json",
@@ -110,7 +108,7 @@ export default function SignUpPage() {
   return (
     <div className="w-full xl:h-screen ">
       <div className="xl:bg-gray flex ">
-        <div className="xl:flex-1">
+        <div className="xl:w-[600px]">
           <Image
             className=" hidden xl:block xl:h-[630px]"
             src={signupImage}
@@ -118,14 +116,12 @@ export default function SignUpPage() {
           />
         </div>
 
-        <div className="xl:flex-1 w-full bg-white">
+        <div className="xl:w-[50%] w-full bg-white">
           <div className="h-[600px] xl:h-0">
             <div className="xl:ml-[70px] text-center">
-            <Link href={'/'}>
-            <h1 className="mt-5 text-[#26BDD2] font-bold text-3xl mb-2 cursor-pointer">
+              <h1 className="mt-5 text-[#26BDD2] font-bold text-3xl mb-2 ">
                 BLOGG
               </h1>
-            </Link>
               <p className="font-semibold mb-2">Join Blogg</p>
               <h5 className="text-center mb-5">
                 Enter your email address to create an account with us
@@ -169,6 +165,8 @@ export default function SignUpPage() {
                     value={formData.password}
                     onChange={handleInputChange}
                   />
+                  {/* <IoMdEye className="text-[22px] absolute right-1" />
+                  <IoMdEyeOff className="text-[22px] absolute right-2 top-9" /> */}
                   <div onClick={handleShow}>
                     {show ? (
                       <IoMdEye className="text-[22px] absolute right-2 top-9" />
@@ -178,6 +176,11 @@ export default function SignUpPage() {
                   </div>
 
                   {errors.password && <p>{errors.password}</p>}
+                  {/* <Image
+                    className="absolute right-2 top-9"
+                    src={eye}
+                    alt="image"
+                  /> */}
                 </div>
 
                 <button
@@ -192,7 +195,7 @@ export default function SignUpPage() {
               <span className={styles.spn}>or</span>
             </div>
 
-            <span className="px-5 xl:ml-[250px] ml-[130px]">Sign up with</span>
+            <span className="px-5 xl:ml-[180px] ml-[130px]">Sign up with</span>
             <div className="flex justify-around px-5 xl:mt-6 mt-6 items-center">
               <div className="border border-gray-500 py-1 px-2 rounded-sm">
                 <Image className="w-9" src={facebook} alt="image" />

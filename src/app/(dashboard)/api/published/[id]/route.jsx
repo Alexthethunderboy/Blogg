@@ -5,10 +5,15 @@ import { NextResponse } from "next/server";
 
 export async function PUT(request, { params }) {
   const { id } = params;
-  const { newTitle: title, newTag: tag, newTagImage: tagImage, newReadtime: readtime, newStory: story} = await request.json();
+  const { newTitle: title, newTag: tag, newTagImage: tagImage, newReadtime: readtime, newStory: story } = await request.json();
   await connect();
-  await PublishedBlog.findByIdAndUpdate(id, { title, tag, tagImage, readtime, story });
-  return NextResponse.json({ message: "Published Blog updated" }, { status: 200 });
+  try {
+    await PublishedBlog.findByIdAndUpdate(id, { title, tag, tagImage, readtime, story });
+    return NextResponse.json({ message: "Published Blog updated" }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ message: "Published Blog not updated" }, { status: 500 });
+
+  }
 }
 
 export async function GET(request, { params }) {
@@ -17,4 +22,3 @@ export async function GET(request, { params }) {
   const published = await PublishedBlog.findOne({ _id: id });
   return NextResponse.json({ published }, { status: 200 });
 }
-

@@ -8,92 +8,78 @@ import Vector3 from "@/assets/Vector3.png";
 import Vector4 from "@/assets/Vector4.png";
 import "@/app/(dashboard)/globals.css";
 import { useRouter } from "next/navigation";
+import { useController, useForm, useFormContext } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useSession } from 'next-auth/react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 
-export default function NewBlog() {
+
+const schema = yup
+  .object({
+    title: yup.string().required('title is required ')
+    .min(4, 'title cannot be less than 4')
+    .max(40, 'title cannot be more than 40'),
+    tag: yup.string().required('tag is required ')
+    .min(4, 'tag cannot be less than 4')
+    .max(25, 'tag cannot be more than 25'),
+    photo: yup.string().required('photo is required '),
+    readtime: yup.string().required('readtime is required ')
+    .min(4, 'readtime cannot be less than 4')
+    .max(20, 'readtime cannot be more than 10'),
+    story: yup.string().required('story is required ')
+    .min(10, 'story cannot be less than 10')
+    .max(100, 'story cannot be more than 100'),
+  })
+  .required();
+
+export default function NewBlogCopy() {
   const CLOUD_NAME = 'dnd3am4dm'
   const UPLOAD_PRESET = 'blog-project123'
   const router = useRouter();
-
-  const [errors, setErrors] = useState({})
-  const [title, setTitle] = useState('');
-  const [tag, setTag] = useState('');
-  const [photo, setPhoto] = useState('');
-  const [readtime, setReadtime] = useState('');
-  const [story, setStory] = useState('');
+  const photoFile = useRef(null)
 
   const { data: session, status } = useSession()
   if (status === 'loading') {
     return <p>Loading...</p>
-
+    
   }
 
-  if (status === 'unauthenticated') {
+  if (status === 'unauthenticated') { 
     router.push("/");
-    return null
+      return null
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+  const {
+    register,
+    handleSubmit: handleSubmitForm,
+    watch,
+    // setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  
+  const photoValue = watch("photo");
+
+  function handleFileChange () {
+    const file = e.target.files[0];
+    setValue("photo", file);
+  }
+
+  const onSubmit = async (data) => {
     const buttonType = window.event.submitter.name
+    const { title, tag , readtime, story } = data;
 
-    let newErrors = {};
-
-    // Check for errors
-    if (!title.trim()) {
-      newErrors.title = "Title is required";
-    }else if (title.trim().length < 5){
-      newErrors.title = "Title cannot be less than 5";
-    }
-
-    if (!tag.trim()) {
-      newErrors.tag = "Tag is required";
-    }else if (tag.trim().length < 5 ){
-      newErrors.tag = "Tag cannot be less than 5";
-    }else if (tag.trim().length > 20 ){
-      newErrors.tag = "Tag cannot be more than 20";
-    }
-
-
-    if (!photo) {
-      newErrors.photo = "Photo is required";
-    }
-
-    // if (!readtime.trim()) {
-    //   newErrors.readtime = "Readtime is required";
-    // }else if (readtime.trim().length < 5){
-    //   newErrors.readtime = "Readtime cannot be less than 5";
-    // }else if (readtime.trim().length > 20){
-    //   newErrors.readtime = "Readtime cannot be more than 20";
-    // }
-
-    if (!story.trim()) {
-      newErrors.story = "Story is required";
-    }else if (story.trim().length < 25) {
-      newErrors.story = "Story cannot be less than 25";
-    }else if (story.trim().length > 150) {
-      newErrors.story = "Story cannot be more than 150";
-    }
-
-    // If there are errors, set them in the state
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-    setErrors({});
-
-    const readtimett = new Date()
-
-    const photo2 = photo[0]
+    const photo2 = photoValue[0]
     console.log(photo2);
 
-    if (buttonType === "publish") {
+    if(buttonType === "publish"){
       //HANDLE Publish FUNCTION
       try {
         const tagImage = await uploadImage(photo2)
-
+  
         const res = await fetch("http://localhost:3000/api/published", {
           method: "POST",
           headers: {
@@ -101,10 +87,12 @@ export default function NewBlog() {
           },
           body: JSON.stringify({ title, tag, tagImage, readtime, story }),
         });
-
+  
         if (res.status === 201) {
           toast("successfully Published")
-          return router.replace("/profile");
+          return router.push("/profile");
+          // alert(`succesfully sent`)
+  
         } else {
           throw new Error("Failed to publish");
         }
@@ -115,13 +103,13 @@ export default function NewBlog() {
         console.log(error);
       }
       return;
-    }
-
-    if (buttonType === "draft") {
-      //HANDLE DRAFT FUNC
-      try {
+      }
+  
+      if(buttonType === "draft"){
+       //HANDLE DRAFT FUNC
+       try {
         const tagImage = await uploadImage(photo2)
-
+  
         const res = await fetch("http://localhost:3000/api/draft", {
           method: "POST",
           headers: {
@@ -129,10 +117,10 @@ export default function NewBlog() {
           },
           body: JSON.stringify({ title, tag, tagImage, readtime, story }),
         });
-
+  
         if (res.status === 201) {
-          toast("successfully Published")
-          return router.replace("/profile");
+          router.push("/profile");
+          alert(`succesfully sent`)
         } else {
           throw new Error("Failed to publish");
         }
@@ -143,9 +131,9 @@ export default function NewBlog() {
         console.log(error);
       }
       return;
-    }
+      }
 
-  };
+    };
 
   const uploadImage = async (photo) => {
     if (!photo) return
@@ -179,7 +167,7 @@ export default function NewBlog() {
       <div>
         <h1 className="font-bold text-3xl gap-4 p-5">Create A New Blog</h1>
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmitForm(onSubmit)}  className="flex flex-col gap-4">
         <p className="ml-4 font-weight-500">Title</p>
         <div className="p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
           <Image src={Vector1} alt="" className="w-5 h-5" />
@@ -188,10 +176,10 @@ export default function NewBlog() {
             type="text"
             placeholder="Enter title here"
             name="text"
-            onChange={(e) => setTitle(e.target.value)}
+            {...register("title")}
           />
         </div>
-        {errors.title && <p className="text-red-500 ml-4">{errors.title}</p>}
+           <p className="text-red-500 ml-4">{errors.title?.message}</p>
 
         <p className="md:ml-4 ml-4 font-weight-700">Tag</p>
         <div className="p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
@@ -201,10 +189,10 @@ export default function NewBlog() {
             type="text"
             placeholder="Enter tags here"
             name="tag"
-            onChange={(e) => setTag(e.target.value)}
+            {...register("tag")}
           />
         </div>
-        {errors.tag && <p className="text-red-500 ml-4">{errors.tag}</p>}
+           <p className="text-red-500 ml-4">{errors.tag?.message}</p>
 
         <p className="ml-4">Tag</p>
         <div className="ps-2 mr-4 ml-4 flex justify-between items-center border border-slate-500 rounded gap-2">
@@ -221,13 +209,14 @@ export default function NewBlog() {
             id="file-upload"
             accept=".jpg, .png, .jpeg"
             placeholder="Choose cover image from files"
-            onChange={(e) => setPhoto(e.target.files)}
+            onChange={handleFileChange}
+            {...register("photo")}
           />
           <label htmlFor='file-upload' className="md:w-[300px] text-center ms-10 bg-[#26BDD2] text-white py-2 px-2 text-xs md:text-sm">
             Upload cover image
           </label>
         </div>
-        {errors.photo && <p className="text-red-500 ml-4">{errors.photo}</p>}
+          <p className="text-red-500 ml-4">{errors.photo?.message}</p>
 
         <p className="md:ml-4 ml-4">Read time</p>
         <div className="w-[300px] p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
@@ -237,36 +226,38 @@ export default function NewBlog() {
             type="text"
             placeholder="Enter read time"
             name="readtime"
-            onChange={(e) => setReadtime(e.target.value)}
-            readOnly
+            {...register("readtime")}
           />
         </div>
-        {errors.readtime && <p className="text-red-500 ml-4">{errors.readtime}</p>}
-        <p className="md:ml-4 ml-4 text-black">Story</p>
+          <p className="text-red-500 ml-4">{errors.readtime?.message}</p>
+          <p className="md:ml-4 ml-4 text-black">Story</p>
         <div className=" mr-4 ml-4 flex items-center gap-2">
           <textarea
             className=" focus:outline-none w-full h-[50vh] md:h-[80vh] border border-gray-400 p-2 rounded-md"
             type="text"
             placeholder="Write your story here"
-            onChange={(e) => setStory(e.target.value)}
+            {...register("story")}
           />
         </div>
-        {errors.story && <p className="text-red-500 ml-4">{errors.story}</p>}
+           <p className="text-red-500 ml-4">{errors.story?.message}</p>
         <div className="flex justify-between p-2">
+        </div>
           <button
             type="submit"
             name="publish"
+            // onClick={handleSubmitForm(onSubmitPublish)}
             className="ml-2 md:py-3 md:px-[230px] px-11 py-3 rounded-md border text-white bg-[#26BDD2]"
           >
             Publish
           </button>
 
-          <button
-            type="submit" name="draft" className="mr-2 md:py-3 md:px-[230px] px-8 py-3 rounded-md border border-cyan-200 text-black bg-blue-50">
+          <button 
+            // onClick={handleSubmitForm(onSubmitDraft)}
+           type="submit" name="draft" className="mr-2 md:py-3 md:px-[230px] px-8 py-3 rounded-md border border-cyan-200 text-black bg-blue-50">
             Save to drafts
           </button>
-        </div>
       </form>
-      <ToastContainer />
+          <ToastContainer />
     </div>
-  )};
+  );
+}
