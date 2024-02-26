@@ -44,7 +44,8 @@ export default function SignUpPage() {
       console.log(formData);
       try {
         const res = await fetch("https://blogg-git-final-alexthethunderboys-projects.vercel.app/api/signup", {
-          method: "POST",
+          mode: "no-cors",
+        method: "POST",
           headers: {
             "content-Type": "aplication/json",
           },
