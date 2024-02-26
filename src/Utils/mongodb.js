@@ -14,3 +14,4 @@ const connect = async () => {
       throw new Error("Error connecting to Mongoose")
   }
 }
+export default connect

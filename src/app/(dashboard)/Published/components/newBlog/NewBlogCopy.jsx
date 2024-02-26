@@ -51,15 +51,15 @@ export default function NewBlogCopy() {
       return null
   }
 
-  const {
-    register,
-    handleSubmit: handleSubmitForm,
-    watch,
-    // setValue,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+//   const {
+//     register,
+//     handleSubmit: handleSubmitForm,
+//     watch,
+//     // setValue,
+//     formState: { errors },
+//   } = useForm({
+//     resolver: yupResolver(schema),
+//   });
   
   const photoValue = watch("photo");
 
