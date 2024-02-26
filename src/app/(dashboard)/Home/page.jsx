@@ -40,15 +40,15 @@ const Homepage = () => {
           {!session ? (
             <>
               <Link href={'/signUp'}>
-                <button className="bg-blue-400 p-2 rounded w-[9rem] text-white">
+                <button className="bg-[#26BDD2] p-2 rounded w-[9rem] text-white">
                 Get Started
                 </button>
               </Link>
             </>
           ) : (
             <>
-            <Link href={'/blog/blog-components'}>
-            <button className="bg-blue-400 p-2 rounded w-[9rem] text-white">
+            <Link href={'/Published'}>
+            <button className="bg-[#26BDD2] p-2 rounded w-[9rem] text-white">
             Create blog
             </button>
           </Link>

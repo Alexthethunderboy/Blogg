@@ -1,4 +1,3 @@
-import connect from "@/Utils/mongodb";
 import DraftBlog from "@/models/DraftBlog";
 import { NextResponse } from "next/server";
 

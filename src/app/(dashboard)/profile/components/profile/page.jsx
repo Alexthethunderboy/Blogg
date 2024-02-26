@@ -3,21 +3,28 @@
 import React from "react";
 import Image from "next/image";
 import ellipse from "@/assets/ellipse.png";
-// import styles from "@/app/(dashboard)/profile/components/Published.module.css";
-// import makeup from "@/assets/makeup.png";
-// import ship from "@/assets/ship.png";
-// import fire from "@/assets/fire.png";
-// import eye from "@/assets/eye.png";
 import Link from "next/link";
 import TabsComponent from "./TabsComponent";
 import Publish from "./publish/page";
 import Draft from "./draft/page";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Profile() {
-  const {data : session} = useSession();
+  const { data: session, status } = useSession()
+  const router = useRouter()
+
+  if (status === 'loading') {
+    return <p>Loading...</p>
+}
+
+if (status === 'unauthenticated') {
+    router.replace("/");
+    return null
+  }
+
   return (
-    <div className="w-full md:max-w-[1440px] border-t border-[#26BDD2]">
+    <div className="w-full md:max-w-[1440px] border-t border-[#26BDD2] ">
       <div className="w-[90%] md:w-[85%] mx-auto h-[auto] flex md:flex-row flex-col items-center py-10 gap-x-6">
         <div className="w-[4rem] md:w-[228px] ">
           <Image className="w-full" src={ellipse} alt="profile-image" />
@@ -56,20 +63,11 @@ export default function Profile() {
       </div>
 
       <div className="w-[90%] md:w-[85%] mx-auto mb-1 ">
-        {/* <div className={styles.container}>
-          <Link href={"/profile/components/profile/publish"}>
-            <button className={styles.btn}>Published</button>
-          </Link>
-          <Link href={"/profile/components/profile/draft"}>
-            <button className={styles.btn}>Draft</button>
-          </Link>
-        </div> */}
         <div className="px-[1.5rem]">
           <TabsComponent items={items}/>
-
         </div>
       </div>
-      <div className="flex items-center justify-center space-x-5 mb-3 ">
+      <div className="flex items-center justify-center space-x-5 mb-10 ">
         <h1 className="text-[#808080] font-bold">Previous</h1>
         <ul className="flex items-center justify-center gap-2 text-[#808080]">
           <li>1</li>

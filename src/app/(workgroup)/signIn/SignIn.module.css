@@ -1,3 +1,50 @@
 .container{
   background-color: pink ;
 }
+
+.spn {
+  margin: auto;
+  position: relative;
+}
+
+.spn::after {
+  content: "";
+  width: 280px;
+  height: 1px;
+  background: gray;
+  position: absolute;
+  left: 20px;
+  bottom: 10px;
+}
+
+.spn::before {
+  content: "";
+  width: 280px;
+  height: 1px;
+  background: gray;
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+}
+
+@media (max-width: 426px) {
+  .spn::after {
+    content: "";
+    width: 160px;
+    height: 1px;
+    background: gray;
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+  }
+
+  .spn::before {
+    content: "";
+    width: 160px;
+    height: 1px;
+    background: gray;
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+  }
+}

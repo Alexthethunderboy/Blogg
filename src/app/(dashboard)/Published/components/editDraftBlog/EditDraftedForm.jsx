@@ -4,8 +4,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Vector1 from "@/assets/Vector1.png";
 import Vector2 from "@/assets/Vector2.png";
-import Vector4 from "@/assets/Vector4.png";
 import Vector3 from "@/assets/Vector3.png";
+import Vector4 from "@/assets/Vector4.png";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
@@ -15,6 +15,7 @@ export default function EditDraftedForm({ id, title, tag, tagImage, readtime, st
   const CLOUD_NAME = 'dnd3am4dm'
   const UPLOAD_PRESET = 'blog-project123'
 
+  const [errors, setErrors] = useState({})
   const [newTitle, setNewTitle] = useState(title);
   const [newTag, setNewTag] = useState(tag);
   const [photo, setPhoto] = useState(tagImage);
@@ -101,7 +102,7 @@ export default function EditDraftedForm({ id, title, tag, tagImage, readtime, st
           body: JSON.stringify( {newTitle, newTag, newTagImage, newReadtime, newStory} ),
         });
   
-        if (res.status === 201) {
+        if (res.status === 200) {
           toast("successfully updated Published")
           return router.replace("/profile");
           // alert(`succesfully sent`)

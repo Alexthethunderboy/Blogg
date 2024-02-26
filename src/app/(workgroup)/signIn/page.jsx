@@ -13,6 +13,7 @@ import styles from "./SignIn.module.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn, useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function SignUpPage() {
   const [show, setShow] = useState(false);
@@ -108,12 +109,14 @@ export default function SignUpPage() {
         <div className="xl:w-[50%] w-full bg-white">
           <div className="h-[600px] xl:h-0">
             <div className="xl:ml-[70px] text-center">
+              <Link href={"/"}>
               <h1 className="mt-5 text-[#26BDD2] font-bold text-3xl mb-2 ">
                 BLOGG
               </h1>
+              </Link>
               <p className="font-semibold mb-2">Join Blogg</p>
               <h5 className="text-center mb-5">
-                Enter your email address to create an account with us
+                Enter your username or email and password to log in with us
               </h5>
             </div>
             <div className="xl:px-5 px-6">
@@ -171,7 +174,7 @@ export default function SignUpPage() {
               <span className={styles.spn}>or</span>
             </div>
 
-            <span className="px-5 xl:ml-[180px] ml-[130px]">Sign up with</span>
+            <div className="px-5 text-center w-full">Sign up with</div>
             <div className="flex justify-around px-5 xl:mt-6 mt-6 items-center">
               <div className="border border-gray-500 py-1 px-2 rounded-sm">
                 <Image className="w-9" src={facebook} alt="image" />

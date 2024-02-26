@@ -3,19 +3,19 @@
 import React from 'react'
 import RecommendedCard from './RecommendedCard'
 import { recommended } from './RecommendedDb'
-// import { useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 const Recommended = () => {
   
-//   const { data: session, status } = useSession()
+  const { data: session, status } = useSession()
+  const router = useRouter()
   if (status === 'loading') {
     return <p>Loading...</p>
 }
 
 if (status === 'unauthenticated') { 
-    return <p className=''>
-        Not Available
-    </p>
+     return null
 }
   return (
     <div className='xl:py-[5rem] py-[2rem]'>
