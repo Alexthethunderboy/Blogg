@@ -63,13 +63,13 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
       newErrors.photo = "Photo is required";
     }
 
-    if (!newReadtime.trim()) {
-      newErrors.newReadtime = "Readtime is required";
-    }else if (newReadtime.trim().length < 5){
-      newErrors.newReadtime = "Readtime cannot be less than 5";
-    }else if (newReadtime.trim().length > 20){
-      newErrors.newReadtime = "Readtime cannot be more than 20";
-    }
+    // if (!newReadtime.trim()) {
+    //   newErrors.newReadtime = "Readtime is required";
+    // }else if (newReadtime.trim().length < 5){
+    //   newErrors.newReadtime = "Readtime cannot be less than 5";
+    // }else if (newReadtime.trim().length > 20){
+    //   newErrors.newReadtime = "Readtime cannot be more than 20";
+    // }
 
     if (!newStory.trim()) {
       newErrors.newStory = "Story is required";

@@ -35,6 +35,5 @@ if (status === 'unauthenticated') {
     </div>
   )
 }
-// }
 
 export default Recommended

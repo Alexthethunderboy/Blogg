@@ -26,11 +26,12 @@ export default async function Publish() {
           >
             <PublishedList
               img={p.tagImage}
-              // views={p.readtime}
+              readtime={p.readtime}
               title={p.title}
               beauty={p.tag}
               href={`/Published/components/editBlog/${p._id}`}
               removeId={p._id}
+              story={p.story}
             />
           </div>
         ))}
@@ -43,6 +44,7 @@ export default async function Publish() {
             views={pro.views}
             beauty={pro.beauty}
             title={pro.title}
+            story={pro.story}
           />
         </div>
       ))}

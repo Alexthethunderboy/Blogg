@@ -85,7 +85,9 @@ export default function NewBlog() {
     }
     setErrors({});
 
-    const readtimett = new Date()
+
+  const readtime = new Date()
+  console.log(readtime);
 
     const photo2 = photo[0]
     console.log(photo2);

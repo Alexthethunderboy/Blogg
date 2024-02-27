@@ -31,6 +31,7 @@ export default async function Draft() {
               beauty={p.tag}
               href={`/Published/components/editDraftBlog/${p._id}`}
               removeId={p._id}
+              story={p.story}
             />
           </div>
         ))}
@@ -43,6 +44,7 @@ export default async function Draft() {
             views={pro.views}
             beauty={pro.beauty}
             title={pro.title}
+            story={pro.story}
           />
         </div>
       ))}
