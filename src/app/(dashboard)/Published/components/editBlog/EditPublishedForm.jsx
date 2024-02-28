@@ -11,16 +11,11 @@ import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
 
-import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
-
-
 
 export default function EditPublishedForm({ id, title, tag, tagImage, readtime, story }) {
   const CLOUD_NAME = 'dnd3am4dm'
   const UPLOAD_PRESET = 'blog-project123'
 
-  const [errors, setErrors] = useState({})
   const [errors, setErrors] = useState({})
   const [newTitle, setNewTitle] = useState(title);
   const [newTag, setNewTag] = useState(tag);
@@ -39,20 +34,8 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
   if (status === 'unauthenticated') {
     router.push("/");
     return null
-
-  const { data: session, status } = useSession()
-  if (status === 'loading') {
-    return <p>Loading...</p>
-
   }
 
-  if (status === 'unauthenticated') {
-    router.push("/");
-    return null
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const buttonType = window.event.submitter.name
@@ -80,13 +63,13 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
       newErrors.photo = "Photo is required";
     }
 
-    // if (!newReadtime.trim()) {
-    //   newErrors.newReadtime = "Readtime is required";
-    // }else if (newReadtime.trim().length < 5){
-    //   newErrors.newReadtime = "Readtime cannot be less than 5";
-    // }else if (newReadtime.trim().length > 20){
-    //   newErrors.newReadtime = "Readtime cannot be more than 20";
-    // }
+    if (!newReadtime.trim()) {
+      newErrors.newReadtime = "Readtime is required";
+    }else if (newReadtime.trim().length < 5){
+      newErrors.newReadtime = "Readtime cannot be less than 5";
+    }else if (newReadtime.trim().length > 20){
+      newErrors.newReadtime = "Readtime cannot be more than 20";
+    }
 
     if (!newStory.trim()) {
       newErrors.newStory = "Story is required";
@@ -114,19 +97,12 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
         // setPhoto(newTagImage)
         const res = await fetch(`http://localhost:3000/api/published/${id}`, {
           method: "PUT",
-        // setPhoto(newTagImage)
-        const res = await fetch(`http://localhost:3000/api/published/${id}`, {
-          method: "PUT",
           headers: {
             "content-Type": "application/json",
           },
           body: JSON.stringify({newTitle, newTag, newTagImage, newReadtime, newStory}),
-          body: JSON.stringify({newTitle, newTag, newTagImage, newReadtime, newStory}),
         });
   
-        if (res.status === 200) {
-          toast("successfully updated Published")
-          return router.replace("/profile");
         if (res.status === 200) {
           toast("successfully updated Published")
           return router.replace("/profile");
@@ -150,16 +126,12 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
         const newTagImage = await uploadImage(photo2)
         const res = await fetch(`http://localhost:3000/api/draft/${id}`, {
           method: "PUT",
-        const res = await fetch(`http://localhost:3000/api/draft/${id}`, {
-          method: "PUT",
           headers: {
             "content-Type": "application/json",
           },
           body: JSON.stringify({newTitle, newTag, newTagImage, newReadtime, newStory}),
         });
   
-        if (res.status === 200) {
-          router.replace("/profile");
         if (res.status === 201) {
           router.replace("/profile");
           alert(`succesfully sent`)
@@ -211,8 +183,6 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
   return (
     <div className="w-[90%] mx-auto mb-14 py-[20rem">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-    <div className="w-[90%] mx-auto mb-14 py-[20rem">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <p className="ml-4 font-weight-500">Title</p>
         <div className="p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
           <Image src={Vector1} alt="" className="w-5 h-5" />
@@ -220,13 +190,11 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             className="w-full focus:outline-none"
             type="text"
             placeholder="Enter newTitle here"
-            placeholder="Enter newTitle here"
             name="text"
             onChange={(e) => setNewTitle(e.target.value)}
             value={newTitle}
           />
         </div>
-           {errors.newTitle && <p className="text-red-500 ml-4">{errors.newTitle}</p>}
            {errors.newTitle && <p className="text-red-500 ml-4">{errors.newTitle}</p>}
 
         <p className="md:ml-4 ml-4 font-weight-700">Tag</p>
@@ -241,7 +209,6 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             value={newTag}
           />
         </div>
-           {errors.newTag && <p className="text-red-500 ml-4">{errors.newTag}</p>}
            {errors.newTag && <p className="text-red-500 ml-4">{errors.newTag}</p>}
 
         <p className="ml-4">Tag</p>
@@ -260,13 +227,11 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             accept=".jpg, .png, .jpeg"
             placeholder="Choose cover image from files"
             onChange={(e) => setPhoto(e.target.files)}
-            onChange={(e) => setPhoto(e.target.files)}
           />
           <label htmlFor='image' className="md:w-[300px] text-center ms-10 bg-[#26BDD2] text-white py-2 px-2 text-xs md:text-sm">
             Upload cover image
           </label>
         </div>
-          {errors.photo && <p className="text-red-500 ml-4">{errors.photo}</p>}
           {errors.photo && <p className="text-red-500 ml-4">{errors.photo}</p>}
 
         <p className="md:ml-4 ml-4">Read time</p>
@@ -277,12 +242,10 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             type="text"
             placeholder="Enter read time"
             name="newReadtime"
-            name="newReadtime"
             onChange={(e) => setNewReadtime(e.target.value)}
             value={newReadtime}
           />
         </div>
-          {errors.newReadtime && <p className="text-red-500 ml-4">{errors.newReadtime}</p>}
           {errors.newReadtime && <p className="text-red-500 ml-4">{errors.newReadtime}</p>}
           <p className="md:ml-4 ml-4 text-black">Story</p>
         <div className=" mr-4 ml-4 flex items-center gap-2">
@@ -290,12 +253,10 @@ export default function EditPublishedForm({ id, title, tag, tagImage, readtime, 
             className=" focus:outline-none w-full h-[50vh] md:h-[80vh] border border-gray-400 p-2 rounded-md"
             type="text"
             placeholder="Write your newStory here"
-            placeholder="Write your newStory here"
             onChange={(e) => setNewStory(e.target.value)}
             value={newStory}
           />
         </div>
-           {errors.newStory && <p className="text-red-500 ml-4">{errors.newStory}</p>}
            {errors.newStory && <p className="text-red-500 ml-4">{errors.newStory}</p>}
         <div className="flex justify-between p-2">
         <button
