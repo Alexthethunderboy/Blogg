@@ -5,8 +5,12 @@ import Image from "next/image";
 import Vector1 from "@/assets/Vector1.png";
 import Vector2 from "@/assets/Vector2.png";
 import Vector3 from "@/assets/Vector3.png";
+import Vector3 from "@/assets/Vector3.png";
 import Vector4 from "@/assets/Vector4.png";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+
+
 import { useSession } from "next-auth/react";
 
 
@@ -24,129 +28,45 @@ export default function EditDraftedForm({ id, title, tag, tagImage, readtime, st
 
   const router = useRouter();
 
-  const { data: session, status } = useSession()
-  if (status === 'loading') {
-    return <p>Loading...</p>
-
-  }
-
-  if (status === 'unauthenticated') {
-    router.push("/");
-    return null
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const buttonType = window.event.submitter.name
-
-    
-    
-    let newErrors = {};
-
-    // Check for errors
-    if (!newTitle.trim()) {
-      newErrors.newTitle = "Title is required";
-    }else if (newTitle.trim().length < 5){
-      newErrors.newTitle = "Title cannot be less than 5";
-    }
-
-    if (!newTag.trim()) {
-      newErrors.newTag = "Tag is required";
-    }else if (newTag.trim().length < 5 ){
-      newErrors.newTag = "Tag cannot be less than 5";
-    }else if (newTag.trim().length > 20 ){
-      newErrors.newTag = "Tag cannot be more than 20";
-    }
+  const onSubmit = async (data, e) => {
+    // setNewTitle(e.target[0].value)
+    // setNewTag(e.target[1].value)
+    // setPhoto(e.target[2].files[0])
+    // setNewReadtime(e.target[3].value)
+    // setNewStory(e.target[4].value)
+    // const title = e.target[0].value; 
+    // const tag = e.target[1].value; 
+    // const photo = e.target[2].files[0] 
+    // const readtime = e.target[3].value; 
+    // const story = e.target[4].value; 
 
 
-    if (!photo) {
-      newErrors.photo = "Photo is required";
-    }
+    console.log(newTitle, newTag, photo, newReadtime, newStory);
+    try {
+      const newTagImage = await uploadImage(photo)
 
-    if (!newReadtime.trim()) {
-      newErrors.newReadtime = "Readtime is required";
-    }else if (newReadtime.trim().length < 5){
-      newErrors.newReadtime = "Readtime cannot be less than 5";
-    }else if (newReadtime.trim().length > 20){
-      newErrors.newReadtime = "Readtime cannot be more than 20";
-    }
+      const res = await fetch(`/api/published/${id}`, {
+        method: "PUT",
+        headers: {
+          "content-Type": "aplication/json",
+        },
+        body: JSON.stringify({ newTitle, newTag, newTagImage, newReadtime, newStory }),
+      });
 
-    if (!newStory.trim()) {
-      newErrors.newStory = "Story is required";
-    }else if (newStory.trim().length < 25) {
-      newErrors.newStory = "Story cannot be less than 25";
-    }else if (newStory.trim().length > 150) {
-      newErrors.newStory = "Story cannot be more than 150";
-    }
-
-    // If there are errors, set them in the state
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-    setErrors({});
-
-    const photo2 = photo[0]
-    console.log(photo2);
-
-    if(buttonType === "publish"){
-      //HANDLE Publish FUNCTION
-      try {
-        const newTagImage = await uploadImage(photo2)
-        // setPhoto(newTagImage)
-        const res = await fetch(`http://localhost:3000/api/published/${id}`, {
-          method: "PUT",
-          headers: {
-            "content-Type": "application/json",
-          },
-          body: JSON.stringify( {newTitle, newTag, newTagImage, newReadtime, newStory} ),
-        });
-  
-        if (res.status === 200) {
-          toast("successfully updated Published")
-          return router.replace("/profile");
-          // alert(`succesfully sent`)
-  
-        } else {
-          throw new Error("Failed to publish");
-        }
-        if (res.status === 500) {
-          alert(`There's a problem`);
-        }
-      } catch (error) {
-        console.log(error);
+      if (res.status === 201) {
+        router.push("/profile");
+        alert(`succesfully sent`)
+      } else {
+        throw new Error("Failed to edit publish ");
       }
-      return;
+      if (res.status === 500) {
+        alert(`There's a problem`);
       }
-  
-      if(buttonType === "draft"){
-       //HANDLE DRAFT FUNC
-       try {
-        const newTagImage = await uploadImage(photo2)
-        const res = await fetch(`http://localhost:3000/api/draft/${id}`, {
-          method: "PUT",
-          headers: {
-            "content-Type": "application/json",
-          },
-          body: JSON.stringify({newTitle, newTag, newTagImage, newReadtime, newStory}),
-        });
-  
-        if (res.status === 200) {
-          router.replace("/profile");
-          alert(`succesfully sent`)
-        } else {
-          throw new Error("Failed to publish");
-        }
-        if (res.status === 500) {
-          alert(`There's a problem`);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-      return;
-      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    };
 
 
   
@@ -182,6 +102,8 @@ export default function EditDraftedForm({ id, title, tag, tagImage, readtime, st
   return (
     <div className="w-[90%] mx-auto mb-14 py-[20rem">
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <div className="w-[90%] mx-auto mb-14 py-[20rem">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <p className="ml-4 font-weight-500">Title</p>
         <div className="p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
           <Image src={Vector1} alt="" className="w-5 h-5" />
@@ -194,6 +116,7 @@ export default function EditDraftedForm({ id, title, tag, tagImage, readtime, st
             value={newTitle}
           />
         </div>
+           {errors.newTitle && <p className="text-red-500 ml-4">{errors.newTitle}</p>}
            {errors.newTitle && <p className="text-red-500 ml-4">{errors.newTitle}</p>}
 
         <p className="md:ml-4 ml-4 font-weight-700">Tag</p>
@@ -208,6 +131,7 @@ export default function EditDraftedForm({ id, title, tag, tagImage, readtime, st
             value={newTag}
           />
         </div>
+           {errors.newTag && <p className="text-red-500 ml-4">{errors.newTag}</p>}
            {errors.newTag && <p className="text-red-500 ml-4">{errors.newTag}</p>}
 
         <p className="ml-4">Tag</p>
@@ -226,11 +150,13 @@ export default function EditDraftedForm({ id, title, tag, tagImage, readtime, st
             accept=".jpg, .png, .jpeg"
             placeholder="Choose cover image from files"
             onChange={(e) => setPhoto(e.target.files)}
+            onChange={(e) => setPhoto(e.target.files)}
           />
           <label htmlFor='image' className="md:w-[300px] text-center ms-10 bg-[#26BDD2] text-white py-2 px-2 text-xs md:text-sm">
             Upload cover image
           </label>
         </div>
+          {errors.photo && <p className="text-red-500 ml-4">{errors.photo}</p>}
           {errors.photo && <p className="text-red-500 ml-4">{errors.photo}</p>}
 
         <p className="md:ml-4 ml-4">Read time</p>
@@ -246,6 +172,7 @@ export default function EditDraftedForm({ id, title, tag, tagImage, readtime, st
           />
         </div>
           {errors.newReadtime && <p className="text-red-500 ml-4">{errors.newReadtime}</p>}
+          {errors.newReadtime && <p className="text-red-500 ml-4">{errors.newReadtime}</p>}
           <p className="md:ml-4 ml-4 text-black">Story</p>
         <div className=" mr-4 ml-4 flex items-center gap-2">
           <textarea
@@ -257,15 +184,20 @@ export default function EditDraftedForm({ id, title, tag, tagImage, readtime, st
           />
         </div>
            {errors.newStory && <p className="text-red-500 ml-4">{errors.newStor }</p>}
+           {errors.newStory && <p className="text-red-500 ml-4">{errors.newStor }</p>}
         <div className="flex justify-between p-2">
         <button
+        <button
             type="submit"
+            name="publish"
             name="publish"
             className="ml-2 md:py-3 md:px-[230px] px-11 py-3 rounded-md border text-white bg-[#26BDD2]"
           >
             Publish
           </button>
 
+          <button 
+           type="submit" name="draft" className="mr-2 md:py-3 md:px-[230px] px-8 py-3 rounded-md border border-cyan-200 text-black bg-blue-50">
           <button 
            type="submit" name="draft" className="mr-2 md:py-3 md:px-[230px] px-8 py-3 rounded-md border border-cyan-200 text-black bg-blue-50">
             Save to drafts

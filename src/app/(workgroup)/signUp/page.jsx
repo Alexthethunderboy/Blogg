@@ -10,6 +10,7 @@ import google from "@/assets/google.png";
 // import eye from "@/assets/eye.png";
 import Image from "next/image";
 import styles from "./SignUp.module.css";
+import styles from "./SignUp.module.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
@@ -110,6 +111,7 @@ export default function SignUpPage() {
     <div className="w-full xl:h-screen ">
       <div className="xl:bg-gray flex ">
         <div className="xl:w-[600px]">
+        <div className="xl:w-[600px]">
           <Image
             className=" hidden xl:block xl:h-[630px]"
             src={signupImage}
@@ -117,6 +119,7 @@ export default function SignUpPage() {
           />
         </div>
 
+        <div className="xl:w-[50%] w-full bg-white">
         <div className="xl:w-[50%] w-full bg-white">
           <div className="h-[600px] xl:h-0">
             <div className="xl:ml-[70px] text-center">
@@ -170,6 +173,8 @@ export default function SignUpPage() {
                   />
                   {/* <IoMdEye className="text-[22px] absolute right-1" />
                   <IoMdEyeOff className="text-[22px] absolute right-2 top-9" /> */}
+                  {/* <IoMdEye className="text-[22px] absolute right-1" />
+                  <IoMdEyeOff className="text-[22px] absolute right-2 top-9" /> */}
                   <div onClick={handleShow}>
                     {show ? (
                       <IoMdEye className="text-[22px] absolute right-2 top-9" />
@@ -179,6 +184,11 @@ export default function SignUpPage() {
                   </div>
 
                   {errors.password && <p>{errors.password}</p>}
+                  {/* <Image
+                    className="absolute right-2 top-9"
+                    src={eye}
+                    alt="image"
+                  /> */}
                   {/* <Image
                     className="absolute right-2 top-9"
                     src={eye}

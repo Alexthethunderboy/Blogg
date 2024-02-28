@@ -1,17 +1,17 @@
-import mongoose from "mongoose"
+
+
+import mongoose from 'mongoose';
 
 const connect = async () => {
-    if (mongoose.connections[0].readyState) return;
-    //  {
-    //         useNewUrlParser: true,
-    //         useUnifiedTopology: true,
-    //     }
-    try{
-        await mongoose.connect(process.env.MONGO_URL)
-        console.log("Connected to MongoDB.");
-    }catch(error){
-        throw new Error("Error connecting to Mongoose")
-    }
-}
+  if (mongoose.connections[0].readyState) return;
 
+  try{
+      await mongoose.connect(process.env.MONGO_URL, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+      })
+  }catch(error){
+      throw new Error("Error connecting to Mongoose")
+  }
+}
 export default connect

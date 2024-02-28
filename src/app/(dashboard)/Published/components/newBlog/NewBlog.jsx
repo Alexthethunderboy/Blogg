@@ -25,6 +25,13 @@ export default function NewBlog() {
   const [readtime, setReadtime] = useState('');
   const [story, setStory] = useState('');
 
+  const [errors, setErrors] = useState({})
+  const [title, setTitle] = useState('');
+  const [tag, setTag] = useState('');
+  const [photo, setPhoto] = useState('');
+  const [readtime, setReadtime] = useState('');
+  const [story, setStory] = useState('');
+
   const { data: session, status } = useSession()
   if (status === 'loading') {
     return <p>Loading...</p>
@@ -32,10 +39,14 @@ export default function NewBlog() {
   }
 
   if (status === 'unauthenticated') {
+  if (status === 'unauthenticated') {
     router.push("/");
+    return null
     return null
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault()
   const handleSubmit = async (e) => {
     e.preventDefault()
     const buttonType = window.event.submitter.name
@@ -93,9 +104,11 @@ export default function NewBlog() {
     console.log(photo2);
 
     if (buttonType === "publish") {
+    if (buttonType === "publish") {
       //HANDLE Publish FUNCTION
       try {
         const tagImage = await uploadImage(photo2)
+
 
         const res = await fetch("http://localhost:3000/api/published", {
           method: "POST",
@@ -105,8 +118,10 @@ export default function NewBlog() {
           body: JSON.stringify({ title, tag, tagImage, readtime, story }),
         });
 
+
         if (res.status === 201) {
           toast("successfully Published")
+          return router.replace("/profile");
           return router.replace("/profile");
         } else {
           throw new Error("Failed to publish");
@@ -123,7 +138,13 @@ export default function NewBlog() {
     if (buttonType === "draft") {
       //HANDLE DRAFT FUNC
       try {
+    }
+
+    if (buttonType === "draft") {
+      //HANDLE DRAFT FUNC
+      try {
         const tagImage = await uploadImage(photo2)
+
 
         const res = await fetch("http://localhost:3000/api/draft", {
           method: "POST",
@@ -133,7 +154,10 @@ export default function NewBlog() {
           body: JSON.stringify({ title, tag, tagImage, readtime, story }),
         });
 
+
         if (res.status === 201) {
+          toast("successfully Published")
+          return router.replace("/profile");
           toast("successfully Published")
           return router.replace("/profile");
         } else {
@@ -147,7 +171,9 @@ export default function NewBlog() {
       }
       return;
     }
+    }
 
+  };
   };
 
   const uploadImage = async (photo) => {
@@ -183,6 +209,7 @@ export default function NewBlog() {
         <h1 className="font-bold text-3xl gap-4 p-5">Create A New Blog</h1>
       </div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <p className="ml-4 font-weight-500">Title</p>
         <div className="p-2 mr-4 ml-4 flex items-center border border-slate-500 rounded gap-2">
           <Image src={Vector1} alt="" className="w-5 h-5" />
@@ -192,8 +219,10 @@ export default function NewBlog() {
             placeholder="Enter title here"
             name="text"
             onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
+        {errors.title && <p className="text-red-500 ml-4">{errors.title}</p>}
         {errors.title && <p className="text-red-500 ml-4">{errors.title}</p>}
 
         <p className="md:ml-4 ml-4 font-weight-700">Tag</p>
@@ -205,8 +234,10 @@ export default function NewBlog() {
             placeholder="Enter tags here"
             name="tag"
             onChange={(e) => setTag(e.target.value)}
+            onChange={(e) => setTag(e.target.value)}
           />
         </div>
+        {errors.tag && <p className="text-red-500 ml-4">{errors.tag}</p>}
         {errors.tag && <p className="text-red-500 ml-4">{errors.tag}</p>}
 
         <p className="ml-4">Tag</p>
@@ -225,11 +256,13 @@ export default function NewBlog() {
             accept=".jpg, .png, .jpeg"
             placeholder="Choose cover image from files"
             onChange={(e) => setPhoto(e.target.files)}
+            onChange={(e) => setPhoto(e.target.files)}
           />
           <label htmlFor='file-upload' className="md:w-[300px] text-center ms-10 bg-[#26BDD2] text-white py-2 px-2 text-xs md:text-sm">
             Upload cover image
           </label>
         </div>
+        {errors.photo && <p className="text-red-500 ml-4">{errors.photo}</p>}
         {errors.photo && <p className="text-red-500 ml-4">{errors.photo}</p>}
 
         <p className="md:ml-4 ml-4">Read time</p>
@@ -242,8 +275,12 @@ export default function NewBlog() {
             name="readtime"
             onChange={(e) => setReadtime(e.target.value)}
             readOnly
+            onChange={(e) => setReadtime(e.target.value)}
+            readOnly
           />
         </div>
+        {errors.readtime && <p className="text-red-500 ml-4">{errors.readtime}</p>}
+        <p className="md:ml-4 ml-4 text-black">Story</p>
         {errors.readtime && <p className="text-red-500 ml-4">{errors.readtime}</p>}
         <p className="md:ml-4 ml-4 text-black">Story</p>
         <div className=" mr-4 ml-4 flex items-center gap-2">
@@ -252,8 +289,10 @@ export default function NewBlog() {
             type="text"
             placeholder="Write your story here"
             onChange={(e) => setStory(e.target.value)}
+            onChange={(e) => setStory(e.target.value)}
           />
         </div>
+        {errors.story && <p className="text-red-500 ml-4">{errors.story}</p>}
         {errors.story && <p className="text-red-500 ml-4">{errors.story}</p>}
         <div className="flex justify-between p-2">
           <button
@@ -266,11 +305,14 @@ export default function NewBlog() {
 
           <button
             type="submit" name="draft" className="mr-2 md:py-3 md:px-[230px] px-8 py-3 rounded-md border border-cyan-200 text-black bg-blue-50">
+          <button
+            type="submit" name="draft" className="mr-2 md:py-3 md:px-[230px] px-8 py-3 rounded-md border border-cyan-200 text-black bg-blue-50">
             Save to drafts
           </button>
         </div>
+        </div>
       </form>
       <ToastContainer />
+      <ToastContainer />
     </div>
-  );
-}
+  )};
